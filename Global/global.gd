@@ -6,3 +6,5 @@ var is_dragging = false
 #stores graph of connected lines as dictionary
 #necessary because multiple lines must be able to be plotted
 var line_nodes = {}
+
+var node_to_clear = -1

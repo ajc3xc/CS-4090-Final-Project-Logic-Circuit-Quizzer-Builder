@@ -12,37 +12,46 @@ var hovered_over = false #stores whether cursor is hovering over line node
 var is_connected = false
 var connected_node = null #node that this node connects to
 
-var line: Line2D
+#load line from memory
+onready var line = get_node("line")
 
 var offset: Vector2
 var initialPos: Vector2
 
 var draggable = false
 
+#var node_to_clear = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#global.line_nodes[self] = {"start": circle_position, "end": Vector2(50, 0),
-	#						"circle_color": Color.black}
+	#initialize first two points
+	line.add_point(Vector2.ZERO)
+	line.add_point(Vector2.ZERO)
+	#line.set_point_position(1, Vector2.ZERO+Vector2(100, 100))
+	add_child(line)
+	if is_instance_valid(line):
+		print(".")
+	global.line_nodes[self] = {"start": global_position,
+							"end": Vector2.ZERO,
+							"color": circle_color}
 	update()
 
-
+#drawing is very problematic, so I'm clobbering together a quick fix
 func _draw():
-	#draw for all members
-	draw_circle(circle_position, circle_radius, circle_color)
-	draw_line(circle_position, line_end, Color.white, 8.0)
-	
+	line.set_point_position(1, global.line_nodes[self]["end"])
+	draw_circle(circle_position, circle_radius, global.line_nodes[self]["color"])
+		
 
 #change circle color, reset circle position (just in case)
 func change_circle_color(new_color: Color):
 	circle_position = Vector2.ZERO
+	global.line_nodes[self]["color"] = new_color
 	circle_color = new_color
 	update()
 
 #draw connecting line from circle
 func draw_connecting_line(mouse_position: Vector2):
-	#global.line_nodes[self]["end"] = mouse_position
-	line_end = mouse_position
+	global.line_nodes[self]["end"] = mouse_position
 	update()
 
 #automatically changes the color if circle entered / exited
@@ -59,17 +68,15 @@ func reset_circle():
 
 func _on_Area2D_mouse_exited():
 	hovered_over = false
-	#print(connected_node)
 	if not global.is_dragging and not connected_node:
-		#print(self)
 		reset_circle()
 
 func _physics_process(delta):
 	if draggable:
 		if Input.is_action_just_pressed("left_click"):
 			print("pressed start")
-			#print(str(global.line_nodes[self]["start"])+" "+str(global.line_nodes[self]["end"]))	
-			#reset connected node (if connected)
+			for member in get_tree().get_nodes_in_group("line_node"):
+				member
 			if connected_node:
 				connected_node.reset_circle()
 				#connected_node.draw_connecting_line(connected_node.circle_position)
@@ -103,8 +110,22 @@ func _physics_process(delta):
 			#print(str(global.line_nodes[self]["start"])+" "+str(global.line_nodes[self]["end"]))
 			global.is_dragging = false
 			if connected_node:
+				#global.line_nodes
 				draw_connecting_line(offset)
 				connected_node.connected_node = self
 			else:
+				#draw_connecting_line(Vector2(-116, -67))
+				#for member in get_tree().get_nodes_in_group("line_node"):
+				#	draw_line()
+				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
 				reset_circle()
+				
+				
+				#print(global.line_nodes.keys())
+				global.node_to_clear = global.line_nodes.keys().find(self, 0)
 				draw_connecting_line(circle_position)
+				#for member in get_tree().get_nodes_in_group("line_node"):
+				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
+				#draw_connecting_line(circle_position)
+				
+				#draw_connecting_line(global.line_nodes[self]["start"])

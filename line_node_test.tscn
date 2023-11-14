@@ -11,7 +11,7 @@ position = Vector2( 409, 403 )
 position = Vector2( 582, 162 )
 
 [node name="line_node" parent="." instance=ExtResource( 1 )]
-position = Vector2( 201, 229 )
+position = Vector2( 116, 67 )
 
 [node name="line_node2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 582, 220 )
