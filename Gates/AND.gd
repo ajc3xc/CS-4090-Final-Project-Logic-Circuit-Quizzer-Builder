@@ -1,0 +1,7 @@
+extends "res://Gates/drop_down_menu.gd"
+
+var gateType = "AND"
+
+#used in inhereited nodes
+func _check_if_type_correct():
+	isCorrect = (selectedType == gateType)
