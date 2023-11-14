@@ -32,7 +32,7 @@ func _ready():
 	#if is_instance_valid(line):
 	#	print(".")
 	global.line_nodes[self] = {"start": global_position,
-							"end": Vector2.ZERO,
+							"end": Vector2.ZERO + Vector2.ZERO,
 							"color": circle_color}
 	update()
 
@@ -55,14 +55,18 @@ func draw_connecting_line(mouse_position: Vector2):
 	update()
 
 #automatically changes the color if circle entered / exited
+#this is only called if a line isn't actively being drawn
 func _on_Area2D_mouse_entered():
 	hovered_over = true
+	print(self)
 	if not global.is_dragging and not global.node_selected:
 		print("area entered")
-		print(global.is_dragging)
-		global.node_selected = true
-		draggable = true
 		change_circle_color(Color.white)
+		#DO 
+		if not Input.is_action_pressed("left_click"):
+			print("enabling dragging")
+			global.node_selected = true
+			draggable = true
 
 #reset variable and colors
 func reset_circle():
@@ -72,18 +76,23 @@ func reset_circle():
 
 func _on_Area2D_mouse_exited():
 	hovered_over = false
+	#if not global.is_dragging and not Input.is_action_pressed("left_click"):
+	#	print(".")
+	#	global.not_exited_node = false
+	#global.last_connected_node = null
 	if not global.is_dragging and not connected_node:
 		reset_circle()
 
 func _physics_process(delta):
-	if draggable:
+	#print(global.last_connected_node)
+	if draggable:# or global.last_connected_node==self:
 		if Input.is_action_just_pressed("left_click"):
 			print("pressed start")
 			if connected_node:
 				#reset this node and connected node
 				#but keep this one set as white
 				connected_node.reset_circle()
-				connected_node.draw_connecting_line(connected_node.circle_position)
+				connected_node.draw_connecting_line(circle_position)
 				draw_connecting_line(circle_position)
 				connected_node.connected_node = null
 				connected_node = null
@@ -115,18 +124,20 @@ func _physics_process(delta):
 				connected_node = null
 			
 		if Input.is_action_just_released("left_click"):
+			print("")
 			print("released")
 			#for member in get_tree().get_nodes_in_group("line_node"):
 			#	print(member.connected_node)
 			#print(str(global.line_nodes[self]["start"])+" "+str(global.line_nodes[self]["end"]))
 			global.is_dragging = false
+			print(self)
 			if connected_node:
 				#draw line from center of this node to center of other node
 				offset = connected_node.global_position - global_position
 				draw_connecting_line(offset)
 				connected_node.change_circle_color(Color.white)
 				
-				if connected_node.connected_node and connected_node.connected_node != self:# and connected_node.connected_node != self:
+				if connected_node.connected_node and connected_node.connected_node != self:
 					#connected_node.change_circle_color(Color.white)
 					#this looks ridiculous, but trust me it works
 					#resets the connected connected node (it makes my head spin too)
@@ -155,15 +166,30 @@ func _physics_process(delta):
 				
 				#turn off draggable for these nodes
 				draggable = false
+				hovered_over = false
 				#print(self)
 				#print(connected_node)
 				#print(connected_node.connected_node)
 				connected_node.draggable = false
 				global.node_selected = false
 				connected_node.hovered_over = false
-				print(connected_node.hovered_over)
-				print(hovered_over)
-				print("??")
+				
+				print("Self:")
+				print(self)
+				print("Connected Node:")
+				print(connected_node)
+				_on_Area2D_mouse_exited()
+				#connected_node._on_Area2D_mouse_exited()
+				#connected_node.draggable = true
+				#hovered_over = true
+				#draggable = true
+				print(draggable)
+				#connected_node._on_Area2D_mouse_entered()
+				#_on_Area2D_mouse_entered()
+				#connected_node._on_Area2D_mouse_entered()
+				#while not global.not_exited_node:
+				#	pass
+				#global.not_exited_node = true
 			else:
 				#draw_connecting_line(Vector2(-116, -67))
 				#for member in get_tree().get_nodes_in_group("line_node"):
@@ -176,6 +202,7 @@ func _physics_process(delta):
 				draw_connecting_line(circle_position)
 				draggable = false
 				global.node_selected = false
+				global.last_connected_node = null
 				print("!!")
 				#for member in get_tree().get_nodes_in_group("line_node"):
 				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
