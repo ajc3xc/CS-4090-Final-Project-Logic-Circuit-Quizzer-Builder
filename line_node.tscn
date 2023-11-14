@@ -1,16 +1,18 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Input.gd" type="Script" id=1]
+[ext_resource path="res://line_node.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 41.2311
 
-[node name="Input" type="Node2D"]
-position = Vector2( 356, 272 )
+[node name="line_node" type="Node2D" groups=["line_node"]]
+position = Vector2( -1, 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="Line2D" type="Line2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( -1, -3 )
