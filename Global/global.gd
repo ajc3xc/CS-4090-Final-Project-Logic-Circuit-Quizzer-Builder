@@ -7,4 +7,5 @@ var is_dragging = false
 #necessary because multiple lines must be able to be plotted
 var line_nodes = {}
 
-var node_to_clear = -1
+#node 
+var selected_node = null

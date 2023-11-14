@@ -4,7 +4,7 @@ extends Node2D
 #variables for circle
 var circle_radius = 40
 var circle_color = Color.black
-var circle_position = Vector2.ZERO
+var circle_position = Vector2.ZERO #where circle originates from
 
 #variables for line drawn
 var line_end = Vector2.ZERO #where the line ends
@@ -28,9 +28,9 @@ func _ready():
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
 	#line.set_point_position(1, Vector2.ZERO+Vector2(100, 100))
-	add_child(line)
-	if is_instance_valid(line):
-		print(".")
+	#add_child(line)
+	#if is_instance_valid(line):
+	#	print(".")
 	global.line_nodes[self] = {"start": global_position,
 							"end": Vector2.ZERO,
 							"color": circle_color}
@@ -38,7 +38,7 @@ func _ready():
 
 #drawing is very problematic, so I'm clobbering together a quick fix
 func _draw():
-	line.set_point_position(1, global.line_nodes[self]["end"])
+	line.set_point_position(1, line_end)
 	draw_circle(circle_position, circle_radius, global.line_nodes[self]["color"])
 		
 
@@ -51,7 +51,7 @@ func change_circle_color(new_color: Color):
 
 #draw connecting line from circle
 func draw_connecting_line(mouse_position: Vector2):
-	global.line_nodes[self]["end"] = mouse_position
+	line_end = mouse_position
 	update()
 
 #automatically changes the color if circle entered / exited
@@ -75,13 +75,14 @@ func _physics_process(delta):
 	if draggable:
 		if Input.is_action_just_pressed("left_click"):
 			print("pressed start")
-			for member in get_tree().get_nodes_in_group("line_node"):
-				member
 			if connected_node:
+				#reset this node and connected node
+				#but keep this one set as white
 				connected_node.reset_circle()
-				#connected_node.draw_connecting_line(connected_node.circle_position)
+				connected_node.draw_connecting_line(connected_node.circle_position)
+				draw_connecting_line(circle_position)
+				connected_node.connected_node = null
 				connected_node = null
-				
 			#make current 
 			global.is_dragging = true
 		if Input.is_action_pressed("left_click"):
@@ -99,7 +100,9 @@ func _physics_process(delta):
 						member.change_circle_color(Color.white)
 						connected_node = member
 						no_connecting_members = false
-					else:
+					#only turn black if it isn't already connected
+					#to something else
+					elif not member.connected_node:
 						member.change_circle_color(Color.black)
 					
 			if no_connecting_members:
@@ -111,8 +114,28 @@ func _physics_process(delta):
 			global.is_dragging = false
 			if connected_node:
 				#global.line_nodes
+				offset = connected_node.global_position - global_position
 				draw_connecting_line(offset)
+				#disconnect any other nodes attached to connected node
+				if connected_node.connected_node:
+					#this looks ridiculous, but trust me it works
+					#resets the connected connected node (it makes my head spin too)
+					connected_node.connected_node.draw_connecting_line(circle_position)
+					connected_node.connected_node.connected_node = null
+					connected_node.connected_node.reset_circle()
+					connected_node.connected_node = null
+				#after that doozy is done, now reset the one you connected to
+				connected_node.draw_connecting_line(circle_position)
 				connected_node.connected_node = self
+				
+				
+				#this could be added, but it would make the simulation slower
+				#connected_node.line_end = Vector2(-offset.x, -offset.y)
+				#connected_node.line.set_point_position(1, connected_node.line_end)
+				
+				#turn off draggable for these nodes
+				draggable = false
+				connected_node.draggable = false
 			else:
 				#draw_connecting_line(Vector2(-116, -67))
 				#for member in get_tree().get_nodes_in_group("line_node"):
@@ -122,8 +145,8 @@ func _physics_process(delta):
 				
 				
 				#print(global.line_nodes.keys())
-				global.node_to_clear = global.line_nodes.keys().find(self, 0)
 				draw_connecting_line(circle_position)
+				draggable = false
 				#for member in get_tree().get_nodes_in_group("line_node"):
 				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
 				#draw_connecting_line(circle_position)
