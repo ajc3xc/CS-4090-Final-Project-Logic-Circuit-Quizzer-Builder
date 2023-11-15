@@ -19,12 +19,20 @@ var offset: Vector2
 
 var draggable = false
 
+#ensure gates of the same type can't connect to each other
+var gate_type
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#initialize first two points
+	set_gate_type()
+	print(gate_type)
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
 	update()
+
+func set_gate_type():
+	pass
 
 #drawing is very problematic, so I'm clobbering together a quick fix
 func _draw():
@@ -90,7 +98,7 @@ func _physics_process(delta):
 			#ensures only one member can be connected to
 			var no_connecting_members = true
 			for member in get_tree().get_nodes_in_group("line_node"):
-				if member != self:
+				if member != self and member.gate_type != self.gate_type:
 					if member.hovered_over:
 						#if so, check if it is currently being hovered over
 						if no_connecting_members:

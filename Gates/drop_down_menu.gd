@@ -10,14 +10,28 @@ var AND = preload("res://Assets/AND.png")
 var NOT = preload("res://Assets/NOT.png")
 onready var bullet_sprite = get_node("Sprite")
 
+var in_nodes = 0
+var has_output = false
+
 func _ready():
 	add_items()
+	enable_nodes()
 
 func add_items():
 	drop_down_menu.add_icon_item(OR, "    ", 1)
 	drop_down_menu.add_icon_item(AND, "    ", 2)
 	drop_down_menu.add_icon_item(NOT, "    ", 3)
-
+	
+func enable_nodes():
+	"""
+	if has_output:
+		$out_node.set_visible(true)
+	if in_nodes == 1:
+		$single_in_node.set_visible(true)
+	elif in_nodes == 2:
+		$"""
+	
+	
 func _on_OptionButton_item_selected(index):
 	#current selected item
 	var current_selected = index
