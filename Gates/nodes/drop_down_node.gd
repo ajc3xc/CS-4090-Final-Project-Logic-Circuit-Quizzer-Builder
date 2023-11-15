@@ -4,6 +4,7 @@ extends Node2D
 #variables for circle
 var circle_radius = 40
 var circle_color = Color.black
+var original_invalid_color #used when hovering over a gate to turn it red if you're dragging the mouse while entering
 var circle_position = Vector2.ZERO #where circle originates from
 
 #variables for line drawn
@@ -55,6 +56,7 @@ func draw_connecting_line(mouse_position: Vector2):
 #this is only called if a line isn't actively being drawn
 func _on_Area2D_mouse_entered():
 	hovered_over = true
+	#check if color was changed
 	if not global.is_dragging and not global.node_selected:
 		print("area entered")
 		if not Input.is_action_pressed("left_click"):
@@ -62,9 +64,12 @@ func _on_Area2D_mouse_entered():
 			print("enabling dragging")
 			global.node_selected = true
 			draggable = true
-		elif not connected_node:
+		else:
 			#visually show that this node can't be selected
+			#save original circle color
+			original_invalid_color = circle_color
 			change_circle_color(Color.darkred)
+	
 
 #reset variable and colors
 func reset_circle():
@@ -74,6 +79,12 @@ func reset_circle():
 
 func _on_Area2D_mouse_exited():
 	hovered_over = false
+	#print(original_invalid_color)
+	if original_invalid_color:
+		#print(circle_color)
+		circle_color = original_invalid_color
+		original_invalid_color = null
+		change_circle_color(circle_color)
 	if not global.is_dragging and not connected_node:
 		reset_circle()
 
