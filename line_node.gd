@@ -16,11 +16,8 @@ var connected_node = null #node that this node connects to
 onready var line = get_node("line")
 
 var offset: Vector2
-var initialPos: Vector2
 
 var draggable = false
-
-#var node_to_clear = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
