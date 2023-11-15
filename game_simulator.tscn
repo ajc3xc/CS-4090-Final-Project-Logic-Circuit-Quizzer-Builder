@@ -1,18 +1,16 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Gates/OR.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Gates/AND.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_simulator.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Logic Gate - NOR .png" type="Texture" id=4]
-[ext_resource path="res://Assets/Logic Gate - NAND .png" type="Texture" id=5]
-[ext_resource path="res://Assets/Logic Gate - NOT.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Logic Gate - XOR .png" type="Texture" id=7]
-[ext_resource path="res://Assets/Logic Gate - XNOR .png" type="Texture" id=8]
-[ext_resource path="res://XNOR.gd" type="Script" id=9]
-[ext_resource path="res://NOT.gd" type="Script" id=10]
-[ext_resource path="res://XOR.gd" type="Script" id=11]
-[ext_resource path="res://NAND.gd" type="Script" id=12]
-[ext_resource path="res://NOR.gd" type="Script" id=13]
+[ext_resource path="res://Gates/NOT.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Gates/NOR.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Gates/XOR.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Gates/XOR.gd" type="Script" id=7]
+[ext_resource path="res://Gates/NAND.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Gates/XNOR.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Gates/NAND.gd" type="Script" id=10]
+[ext_resource path="res://Gates/XNOR.gd" type="Script" id=11]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
@@ -33,50 +31,28 @@ text = "Check"
 align = 1
 valign = 1
 
-[node name="OR" parent="." instance=ExtResource( 1 )]
-position = Vector2( 52, 101 )
-
 [node name="AND" parent="." groups=["drop_down"] instance=ExtResource( 2 )]
 position = Vector2( 537, 106 )
 
-[node name="NAND" type="Node2D" parent="."]
-script = ExtResource( 12 )
+[node name="NOR" parent="." instance=ExtResource( 5 )]
+position = Vector2( 585, 314 )
 
-[node name="Sprite" type="Sprite" parent="NAND"]
-position = Vector2( 265, 388 )
-scale = Vector2( 0.350521, 0.245139 )
-texture = ExtResource( 5 )
+[node name="OR" parent="." instance=ExtResource( 1 )]
+position = Vector2( 58, 102 )
 
-[node name="NOR" type="Node2D" parent="."]
-script = ExtResource( 13 )
+[node name="NOT" parent="." instance=ExtResource( 4 )]
+position = Vector2( 89, 361 )
 
-[node name="Sprite" type="Sprite" parent="NOR"]
-position = Vector2( 541, 388 )
-scale = Vector2( 0.302083, 0.194444 )
-texture = ExtResource( 4 )
+[node name="XOR" parent="." instance=ExtResource( 6 )]
+position = Vector2( 266, 28 )
+script = ExtResource( 7 )
 
-[node name="XOR" type="Node2D" parent="."]
+[node name="XNOR" parent="." instance=ExtResource( 9 )]
+position = Vector2( 125, 47 )
 script = ExtResource( 11 )
 
-[node name="Sprite" type="Sprite" parent="XOR"]
-position = Vector2( 799, -13 )
-scale = Vector2( 0.217708, 0.202778 )
-texture = ExtResource( 7 )
-
-[node name="XNOR" type="Node2D" parent="."]
-script = ExtResource( 9 )
-
-[node name="Sprite" type="Sprite" parent="XNOR"]
-position = Vector2( 558, -10 )
-scale = Vector2( 0.251042, 0.216667 )
-texture = ExtResource( 8 )
-
-[node name="NOT" type="Node2D" parent="."]
+[node name="NAND" parent="." instance=ExtResource( 8 )]
+position = Vector2( 81, 244 )
 script = ExtResource( 10 )
-
-[node name="Sprite" type="Sprite" parent="NOT"]
-position = Vector2( 880, 388 )
-scale = Vector2( 0.205208, 0.194444 )
-texture = ExtResource( 6 )
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

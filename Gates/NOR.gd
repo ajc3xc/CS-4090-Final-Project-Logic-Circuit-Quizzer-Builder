@@ -1,6 +1,7 @@
 extends "res://Gates/drop_down_menu.gd"
 
-const gateType = "NOR"
+
+var gateType = "NOR"
 var input1 = false
 var input2 = false
 #used in inhereited nodes

@@ -1,6 +1,7 @@
 extends "res://Gates/drop_down_menu.gd"
 
-const gateType = "XNOR"
+
+var gateType = "XNOR"
 var input1 = false
 var input2 = false
 #used in inhereited nodes
@@ -10,3 +11,4 @@ func _check_if_type_correct():
 		return false
 	else:
 		return true
+
