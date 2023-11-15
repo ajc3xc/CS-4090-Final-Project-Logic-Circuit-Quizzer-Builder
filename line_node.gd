@@ -27,25 +27,17 @@ func _ready():
 	#initialize first two points
 	line.add_point(Vector2.ZERO)
 	line.add_point(Vector2.ZERO)
-	#line.set_point_position(1, Vector2.ZERO+Vector2(100, 100))
-	#add_child(line)
-	#if is_instance_valid(line):
-	#	print(".")
-	global.line_nodes[self] = {"start": global_position,
-							"end": Vector2.ZERO + Vector2.ZERO,
-							"color": circle_color}
 	update()
 
 #drawing is very problematic, so I'm clobbering together a quick fix
 func _draw():
 	line.set_point_position(1, line_end)
-	draw_circle(circle_position, circle_radius, global.line_nodes[self]["color"])
+	draw_circle(circle_position, circle_radius, circle_color)
 		
 
 #change circle color, reset circle position (just in case)
 func change_circle_color(new_color: Color):
 	circle_position = Vector2.ZERO
-	global.line_nodes[self]["color"] = new_color
 	circle_color = new_color
 	update()
 
@@ -58,15 +50,16 @@ func draw_connecting_line(mouse_position: Vector2):
 #this is only called if a line isn't actively being drawn
 func _on_Area2D_mouse_entered():
 	hovered_over = true
-	print(self)
 	if not global.is_dragging and not global.node_selected:
 		print("area entered")
-		change_circle_color(Color.white)
-		#DO 
 		if not Input.is_action_pressed("left_click"):
+			change_circle_color(Color.white)
 			print("enabling dragging")
 			global.node_selected = true
 			draggable = true
+		elif not connected_node:
+			#visually show that this node can't be selected
+			change_circle_color(Color.darkred)
 
 #reset variable and colors
 func reset_circle():
@@ -76,16 +69,11 @@ func reset_circle():
 
 func _on_Area2D_mouse_exited():
 	hovered_over = false
-	#if not global.is_dragging and not Input.is_action_pressed("left_click"):
-	#	print(".")
-	#	global.not_exited_node = false
-	#global.last_connected_node = null
 	if not global.is_dragging and not connected_node:
 		reset_circle()
 
 func _physics_process(delta):
-	#print(global.last_connected_node)
-	if draggable:# or global.last_connected_node==self:
+	if draggable:
 		if Input.is_action_just_pressed("left_click"):
 			print("pressed start")
 			if connected_node:
@@ -99,9 +87,6 @@ func _physics_process(delta):
 			#make current 
 			global.is_dragging = true
 		if Input.is_action_pressed("left_click"):
-			#if not global.is_dragging:
-			#	global.is_dragging = true
-			#	print("YOU ARE DRAGGING BITCH")
 			offset = get_global_mouse_position() - global_position
 			draw_connecting_line(offset)
 			#variable storing whether a member is already connected
@@ -114,7 +99,7 @@ func _physics_process(delta):
 						if no_connecting_members:
 							connected_node = member
 							no_connecting_members = false
-							member.change_circle_color(Color.blue)
+							member.change_circle_color(Color.white)
 					#otherwise, reset the color
 					elif member.connected_node:
 						member.change_circle_color(Color.white)
@@ -124,13 +109,8 @@ func _physics_process(delta):
 				connected_node = null
 			
 		if Input.is_action_just_released("left_click"):
-			print("")
 			print("released")
-			#for member in get_tree().get_nodes_in_group("line_node"):
-			#	print(member.connected_node)
-			#print(str(global.line_nodes[self]["start"])+" "+str(global.line_nodes[self]["end"]))
 			global.is_dragging = false
-			print(self)
 			if connected_node:
 				#draw line from center of this node to center of other node
 				offset = connected_node.global_position - global_position
@@ -138,13 +118,7 @@ func _physics_process(delta):
 				connected_node.change_circle_color(Color.white)
 				
 				if connected_node.connected_node and connected_node.connected_node != self:
-					#connected_node.change_circle_color(Color.white)
 					#this looks ridiculous, but trust me it works
-					#resets the connected connected node (it makes my head spin too)
-					#print(".")
-					#connected_node.connected_node.draw_connecting_line(circle_position)
-					#print(connected_node.connected_node)
-					#print(connected_node.connected_node.connected_node)
 					if connected_node.connected_node.connected_node:
 						connected_node.connected_node.connected_node = null
 					#reset any secondary connected nodes connected to the connected node
@@ -155,57 +129,21 @@ func _physics_process(delta):
 				#delete any line it may connect to
 				connected_node.draw_connecting_line(circle_position)
 				connected_node.connected_node = self
-				#print(connected_node)
-				#print(connected_node.connected_node)
-				#print(connected_node.connected_node.connected_node)
 				
 				
 				#this could be added, but it would make the simulation slower
+				#draws line for both nodes
 				#connected_node.line_end = Vector2(-offset.x, -offset.y)
 				#connected_node.line.set_point_position(1, connected_node.line_end)
 				
 				#turn off draggable for these nodes
 				draggable = false
 				hovered_over = false
-				#print(self)
-				#print(connected_node)
-				#print(connected_node.connected_node)
 				connected_node.draggable = false
 				global.node_selected = false
 				connected_node.hovered_over = false
-				
-				print("Self:")
-				print(self)
-				print("Connected Node:")
-				print(connected_node)
-				_on_Area2D_mouse_exited()
-				#connected_node._on_Area2D_mouse_exited()
-				#connected_node.draggable = true
-				#hovered_over = true
-				#draggable = true
-				print(draggable)
-				#connected_node._on_Area2D_mouse_entered()
-				#_on_Area2D_mouse_entered()
-				#connected_node._on_Area2D_mouse_entered()
-				#while not global.not_exited_node:
-				#	pass
-				#global.not_exited_node = true
 			else:
-				#draw_connecting_line(Vector2(-116, -67))
-				#for member in get_tree().get_nodes_in_group("line_node"):
-				#	draw_line()
-				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
 				reset_circle()
-				
-				
-				#print(global.line_nodes.keys())
 				draw_connecting_line(circle_position)
 				draggable = false
 				global.node_selected = false
-				global.last_connected_node = null
-				print("!!")
-				#for member in get_tree().get_nodes_in_group("line_node"):
-				#	print(global.line_nodes[member]["start"] - global.line_nodes[member]["end"])
-				#draw_connecting_line(circle_position)
-				
-				#draw_connecting_line(global.line_nodes[self]["start"])
