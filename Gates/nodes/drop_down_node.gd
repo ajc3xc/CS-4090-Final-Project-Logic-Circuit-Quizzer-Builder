@@ -9,6 +9,7 @@ var circle_position = Vector2.ZERO #where circle originates from
 
 #variables for line drawn
 var line_end = Vector2.ZERO #where the line ends
+var line_start = Vector2.ZERO #where the line starts
 var hovered_over = false #stores whether cursor is hovering over line node
 var is_connected = false
 var connected_node = null #node that this node connects to
@@ -37,7 +38,9 @@ func set_gate_type():
 
 #drawing is very problematic, so I'm clobbering together a quick fix
 func _draw():
-	line.set_point_position(1, line_end)
+	line.clear_points()
+	line.add_point(line_start)
+	line.add_point(line_end)
 	draw_circle(circle_position, circle_radius, circle_color)
 		
 
@@ -45,6 +48,13 @@ func _draw():
 func change_circle_color(new_color: Color):
 	circle_position = Vector2.ZERO
 	circle_color = new_color
+	update()
+
+#change where line starts from
+#this is when finishing drawing a line
+#this is not good code, but I don't care enough
+func change_line_start(new_line_start: Vector2):
+	line_start = new_line_start
 	update()
 
 #draw connecting line from circle
@@ -96,7 +106,9 @@ func _physics_process(delta):
 				#reset this node and connected node
 				#but keep this one set as white
 				connected_node.reset_circle()
+				connected_node.change_line_start(circle_position)
 				connected_node.draw_connecting_line(circle_position)
+				change_line_start(circle_position)
 				draw_connecting_line(circle_position)
 				connected_node.connected_node = null
 				connected_node = null
@@ -128,10 +140,14 @@ func _physics_process(delta):
 			print("released")
 			global.is_dragging = false
 			if connected_node:
-				#draw line from center of this node to center of other node
+				#draw line from center of this node to edge of other node
 				offset = connected_node.global_position - global_position
-				draw_connecting_line(offset)
+				var offset_in_circle = offset.normalized() * circle_radius
+				
+				offset = offset - offset_in_circle
 				connected_node.change_circle_color(Color.white)
+				change_line_start(offset_in_circle)
+				draw_connecting_line(offset)
 				
 				if connected_node.connected_node and connected_node.connected_node != self:
 					#this looks ridiculous, but trust me it works
@@ -145,12 +161,6 @@ func _physics_process(delta):
 				#delete any line it may connect to
 				connected_node.draw_connecting_line(circle_position)
 				connected_node.connected_node = self
-				
-				
-				#this could be added, but it would make the simulation slower
-				#draws line for both nodes
-				#connected_node.line_end = Vector2(-offset.x, -offset.y)
-				#connected_node.line.set_point_position(1, connected_node.line_end)
 				
 				#turn off draggable for these nodes
 				draggable = false
