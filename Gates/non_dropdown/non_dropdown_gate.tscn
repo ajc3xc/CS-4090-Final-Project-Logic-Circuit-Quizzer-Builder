@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Gates/non_dropdown/non_dropdown_gate.gd" type="Script" id=1]
+[ext_resource path="res://Gates/nodes/node_multiple_lines.tscn" type="PackedScene" id=2]
+
+[node name="non_clickable_gate" type="Node2D"]
+position = Vector2( 0, -1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="out" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 4, 50 )
+
+[node name="in" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 89, 51 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 96.0
+margin_bottom = 96.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 96.0
+margin_bottom = 96.0
+align = 1
+valign = 1

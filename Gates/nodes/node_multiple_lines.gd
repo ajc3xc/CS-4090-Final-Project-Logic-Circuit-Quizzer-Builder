@@ -20,6 +20,10 @@ var connected_nodes = {} #stores dictionary of dictionaries of connected nodes
 #load line from memory
 onready var line = get_node("line")
 
+#which nodes are part of the same gate
+#so they can't be connected
+var gate_nodes = []
+
 var offset: Vector2
 
 var draggable = false
@@ -141,7 +145,7 @@ func _physics_process(delta):
 				if member != self:
 					if member.hovered_over:
 						#if so, check if it is currently being hovered over
-						if no_connecting_members:
+						if no_connecting_members and not gate_nodes.has(member):
 							last_connected_node = member
 							no_connecting_members = false
 							member.change_circle_color(Color.white)
