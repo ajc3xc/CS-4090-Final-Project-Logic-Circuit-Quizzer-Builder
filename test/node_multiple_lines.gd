@@ -67,7 +67,7 @@ func _on_Area2D_mouse_entered():
 	hovered_over = true
 	#check if color was changed
 	if not global.is_dragging and not global.node_selected:
-		print("area entered")
+		#print("area entered")
 		global.node_selected = true
 		if not Input.is_action_pressed("left_click"):
 			change_circle_color(Color.white)
@@ -172,7 +172,7 @@ func _physics_process(delta):
 						
 						#add new line for this node
 						var new_line = Line2D.new()
-						new_line.set_default_color(Color.darkred)
+						new_line.set_default_color(Color.white)
 						add_child(new_line)
 						
 						#calculate start and end for line
@@ -187,7 +187,7 @@ func _physics_process(delta):
 						#add new line for connected node
 						#this is necessary so both know they reference each other
 						var connected_new_line = Line2D.new()
-						connected_new_line.set_default_color(Color.darkred)
+						connected_new_line.set_default_color(Color.white)
 						last_connected_node.add_child(connected_new_line)
 						
 						var offset_inverted = Vector2.ZERO - offset
@@ -198,24 +198,18 @@ func _physics_process(delta):
 														"start": offset_in_circle_inverted,
 														"end": offset_inverted}
 						
-						#last_connected_node.connected_nodes[self] = {""}
 						change_line_start(offset_in_circle)
 						draw_connecting_line(offset)
 						
 						#set is_connected to true for both
 						is_connected = true
 						last_connected_node.is_connected = true
-						
-						print(connected_nodes)
-						print(last_connected_node.connected_nodes)
 														
 					#other node was connected to this one
 					else:
-						print(".")
 						erase_connection(last_connected_node)
 				#this node was connected to it
 				else:
-					print("!")
 					erase_connection(last_connected_node)
 						
 			#did not connect to a new node	
