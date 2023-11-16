@@ -20,13 +20,84 @@ margin_right = 183.0
 margin_bottom = 371.0
 theme = SubResource( 1 )
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Gates N Nodes Label" type="Label" parent="Panel"]
 margin_left = 2.0
-margin_top = 2.0
 margin_right = 182.0
-margin_bottom = 33.0
+margin_bottom = 31.0
 custom_styles/normal = SubResource( 2 )
 text = "Gates n Nodes
 "
 align = 1
 valign = 1
+
+[node name="Label Button" type="Button" parent="Panel"]
+margin_left = 25.0
+margin_top = 56.0
+margin_right = 154.0
+margin_bottom = 76.0
+text = "Label"
+
+[node name="Gates Button" type="Button" parent="Panel"]
+margin_left = 25.0
+margin_top = 94.0
+margin_right = 154.0
+margin_bottom = 114.0
+text = "Gates"
+
+[node name="Input Button" type="Button" parent="Panel"]
+margin_left = 26.0
+margin_top = 131.0
+margin_right = 154.0
+margin_bottom = 151.0
+text = "Inputs"
+
+[node name="Outputs Button" type="Button" parent="Panel"]
+margin_left = 27.0
+margin_top = 170.0
+margin_right = 154.0
+margin_bottom = 190.0
+text = "Outputs"
+
+[node name="Panel2" type="Panel" parent="."]
+margin_left = 823.0
+margin_top = 234.0
+margin_right = 1021.0
+margin_bottom = 598.0
+rect_pivot_offset = Vector2( -145, 12 )
+
+[node name="Control Buttons" type="Label" parent="Panel2"]
+margin_top = -1.0
+margin_right = 198.0
+margin_bottom = 30.0
+custom_styles/normal = SubResource( 2 )
+text = "Control Buttons"
+align = 1
+valign = 1
+
+[node name="Delete Button" type="Button" parent="Panel2"]
+margin_left = 23.0
+margin_top = 54.0
+margin_right = 175.0
+margin_bottom = 74.0
+text = "Delete Object"
+
+[node name="Clear All Button" type="Button" parent="Panel2"]
+margin_left = 24.0
+margin_top = 95.0
+margin_right = 175.0
+margin_bottom = 115.0
+text = "Clear All / Reset"
+
+[node name="Load Scene Button" type="Button" parent="Panel2"]
+margin_left = 25.0
+margin_top = 133.0
+margin_right = 176.0
+margin_bottom = 153.0
+text = "Load Scene"
+
+[node name="Save Scene Button" type="Button" parent="Panel2"]
+margin_left = 27.0
+margin_top = 164.0
+margin_right = 176.0
+margin_bottom = 184.0
+text = "Save Scene"
