@@ -12,7 +12,7 @@ var line_end = Vector2.ZERO #where the line ends
 var line_start = Vector2.ZERO #where the line starts
 var hovered_over = false #stores whether cursor is hovering over line node
 var is_connected = false
-var last_connected_node = null #last node this node connected to
+var last_connected_node
 
 var example_line
 var connected_nodes = {} #stores dictionary of dictionaries of connected nodes
@@ -99,10 +99,7 @@ func _on_Area2D_mouse_exited():
 
 ######################################################
 func set_is_connected():
-	if not last_connected_node and connected_nodes.size() <= 0:
-		for member in get_tree().get_nodes_in_group("line_node"):
-			if member.connected_nodes.has(self):
-				return
+	if connected_nodes.size() <= 0:
 		is_connected = false
 		reset_circle()
 	else:
@@ -110,14 +107,23 @@ func set_is_connected():
 
 #removes line and wipes dictionary entry
 func erase_connection(connected_node_to_remove):
-	last_connected_node.draw_connecting_line(circle_position)
+	#reset lines in both to 0
+	connected_node_to_remove.change_line_start(circle_position)
+	connected_node_to_remove.draw_connecting_line(circle_position)
+	change_line_start(circle_position)
+	draw_connecting_line(circle_position)
+	
+	#delete respective lines
 	remove_child(connected_nodes[connected_node_to_remove]["line"])
+	connected_node_to_remove.remove_child(connected_node_to_remove.connected_nodes[self]["line"])
+	
+	#delete entries in dictionaries
+	connected_node_to_remove.connected_nodes.erase(self)
 	connected_nodes.erase(connected_node_to_remove)
+	
+	#change is_connected state if dictionary is empty
 	set_is_connected()
-	print(connected_nodes)
-	last_connected_node = null
-	#set value of is_connected
-	set_is_connected()
+	connected_node_to_remove.set_is_connected()
 
 func _physics_process(delta):
 	if draggable:
@@ -140,7 +146,7 @@ func _physics_process(delta):
 							no_connecting_members = false
 							member.change_circle_color(Color.white)
 					#otherwise, reset the color
-					elif member.connected_nodes.size() > 0 or member.last_connected_node:
+					elif member.connected_nodes.size() > 0:
 						member.change_circle_color(Color.white)
 					else:
 						member.change_circle_color(Color.black)
@@ -163,55 +169,54 @@ func _physics_process(delta):
 				#ensure neither node has been connected to the other before
 				if not connected_nodes.has(last_connected_node):
 					if not last_connected_node.connected_nodes.has(self):
+						
+						#add new line for this node
 						var new_line = Line2D.new()
 						new_line.set_default_color(Color.darkred)
 						add_child(new_line)
 						
+						#calculate start and end for line
 						offset = last_connected_node.global_position - global_position
-						var offset_inverted = Vector2.ZERO - offset
 						var offset_in_circle = offset.normalized() * circle_radius
 				
 						offset = offset - offset_in_circle
-						last_connected_node.change_circle_color(Color.white)
 						connected_nodes[last_connected_node] = {"line": new_line,
 														"start": offset_in_circle,
 														"end": offset}
 														
+						#add new line for connected node
+						#this is necessary so both know they reference each other
+						var connected_new_line = Line2D.new()
+						connected_new_line.set_default_color(Color.darkred)
+						last_connected_node.add_child(connected_new_line)
+						
+						var offset_inverted = Vector2.ZERO - offset
+						var offset_in_circle_inverted = Vector2.ZERO - offset_in_circle
+						
+						last_connected_node.change_circle_color(Color.white)
+						last_connected_node.connected_nodes[self] = {"line": connected_new_line,
+														"start": offset_in_circle_inverted,
+														"end": offset_inverted}
 						
 						#last_connected_node.connected_nodes[self] = {""}
 						change_line_start(offset_in_circle)
 						draw_connecting_line(offset)
-						last_connected_node.last_connected_node = self
 						
 						#set is_connected to true for both
 						is_connected = true
 						last_connected_node.is_connected = true
+						
+						print(connected_nodes)
+						print(last_connected_node.connected_nodes)
 														
 					#other node was connected to this one
 					else:
 						print(".")
-						last_connected_node.change_line_start(circle_position)
-						last_connected_node.draw_connecting_line(circle_position)
-						print(connected_nodes)
-						print(last_connected_node.connected_nodes)
-						change_line_start(circle_position)
-						draw_connecting_line(circle_position)
-						last_connected_node.erase_connection(self)
-						print(last_connected_node.last_connected_node)
-						last_connected_node = null
-						if connected_nodes.size() <= 0:
-							is_connected = false
-							reset_circle()
+						erase_connection(last_connected_node)
 				#this node was connected to it
 				else:
 					print("!")
-					last_connected_node.change_line_start(circle_position)
-					last_connected_node.draw_connecting_line(circle_position)
 					erase_connection(last_connected_node)
-					change_line_start(circle_position)
-					draw_connecting_line(circle_position)
-					if not is_connected:
-						reset_circle()
 						
 			#did not connect to a new node	
 			else:
