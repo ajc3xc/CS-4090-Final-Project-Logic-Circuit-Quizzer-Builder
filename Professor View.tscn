@@ -124,3 +124,7 @@ script = ExtResource( 4 )
 [connection signal="pressed" from="Gates N Nodes Panel/Gates Button" to="Gates N Nodes Panel/Gates Button" method="_on_Gates_Button_pressed"]
 [connection signal="pressed" from="Gates N Nodes Panel/Input Button" to="Gates N Nodes Panel/Input Button" method="_on_Input_Button_pressed"]
 [connection signal="pressed" from="Gates N Nodes Panel/Outputs Button" to="Gates N Nodes Panel/Outputs Button" method="_on_Outputs_Button_pressed"]
+[connection signal="pressed" from="Control Buttons Panel/Delete Button" to="Control Buttons Panel/Delete Button" method="_on_Delete_Button_pressed"]
+[connection signal="pressed" from="Control Buttons Panel/Clear All Button" to="Control Buttons Panel/Clear All Button" method="_on_Clear_All_Button_pressed"]
+[connection signal="pressed" from="Control Buttons Panel/Load Scene Button" to="Control Buttons Panel/Load Scene Button" method="_on_Load_Scene_Button_pressed"]
+[connection signal="pressed" from="Control Buttons Panel/Save Scene Button" to="Control Buttons Panel/Save Scene Button" method="_on_Save_Scene_Button_pressed"]

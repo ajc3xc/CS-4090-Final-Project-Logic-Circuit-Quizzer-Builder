@@ -19,5 +19,9 @@ func _ready():
 #create  a function to create the object mentioned in button
 func _on_Label_Button_pressed():
 	print("Label has been pressed")
+	var textBox= Label.new()
+	Label.create()
+	
+	
 	
 	pass # Replace with function body.
