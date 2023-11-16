@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Logic Gate - XNOR .png-1b36c499262d437db155de32e3176cbb.stex"
+path="res://.import/NOR.png-ca578d8378e7e45a110bdc7af09a1373.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logic Gate - XNOR .png"
-dest_files=[ "res://.import/Logic Gate - XNOR .png-1b36c499262d437db155de32e3176cbb.stex" ]
+source_file="res://Assets/NOR.png"
+dest_files=[ "res://.import/NOR.png-ca578d8378e7e45a110bdc7af09a1373.stex" ]
 
 [params]
 

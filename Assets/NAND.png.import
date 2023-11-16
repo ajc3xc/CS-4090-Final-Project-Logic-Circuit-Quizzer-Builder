@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Logic Gate - AND .png-0664e505b2542c9122bbefd7177f7076.stex"
+path="res://.import/NAND.png-6594800739063495bf5746c5807fd519.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Logic Gate - AND .png"
-dest_files=[ "res://.import/Logic Gate - AND .png-0664e505b2542c9122bbefd7177f7076.stex" ]
+source_file="res://Assets/NAND.png"
+dest_files=[ "res://.import/NAND.png-6594800739063495bf5746c5807fd519.stex" ]
 
 [params]
 
