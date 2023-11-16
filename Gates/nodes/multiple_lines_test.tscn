@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Gates/nodes/node_multiple_lines.tscn" type="PackedScene" id=1]
 
-
 [node name="Node2D" type="Node2D"]
 
 [node name="line_node" parent="." instance=ExtResource( 1 )]
