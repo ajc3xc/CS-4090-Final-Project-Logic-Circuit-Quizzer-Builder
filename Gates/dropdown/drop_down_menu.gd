@@ -5,6 +5,7 @@ onready var drop_down_menu = $OptionButton
 var selectedType = "None"
 var isCorrect = false
 
+var NONE = preload("res://Assets/black_square.png")
 var OR = preload("res://Assets/OR.png")
 var AND = preload("res://Assets/AND.png")
 var XOR = preload("res://Assets/XOR.png")
@@ -12,7 +13,7 @@ var NOT = preload("res://Assets/NOT.png")
 var NAND = preload("res://Assets/NAND.png")
 var NOR = preload("res://Assets/NOR.png")
 var XNOR = preload("res://Assets/XNOR.png")
-onready var bullet_sprite = get_node("OR")
+#onready var bullet_sprite = get_node("Sprite")
 
 var in_nodes = 0
 var has_output = false
@@ -22,6 +23,8 @@ func _ready():
 	enable_nodes()
 
 func add_items():
+	
+	drop_down_menu.add_icon_item(NONE, "    ", 0)
 	drop_down_menu.add_icon_item(OR, "    ", 1)
 	drop_down_menu.add_icon_item(AND, "    ", 2)
 	drop_down_menu.add_icon_item(XOR, "    ", 3)
@@ -45,32 +48,28 @@ func _on_OptionButton_item_selected(index):
 	var current_selected = index
 	
 	if current_selected == 0:
+		selectedType = "None"
+	if current_selected == 0:
 		selectedType = "OR"
-		bullet_sprite.set_texture(OR)
+		#bullet_sprite.set_texture(OR)
 		_check_if_type_correct()
 	elif current_selected == 1:
 		selectedType = "AND"
-		bullet_sprite.set_texture(AND)
 		_check_if_type_correct()
 	elif current_selected == 2:
 		selectedType = "XOR"
-		bullet_sprite.set_texture(XOR)
 		_check_if_type_correct()
 	elif current_selected == 3:
 		selectedType = "NOT"
-		bullet_sprite.set_texture(NOT)
 		_check_if_type_correct()
 	elif current_selected == 4:
 		selectedType = "NAND"
-		bullet_sprite.set_texture(NAND)
 		_check_if_type_correct()
 	elif current_selected == 5:
 		selectedType = "NOR"
-		bullet_sprite.set_texture(NOR)
 		_check_if_type_correct()
 	elif current_selected == 6:
 		selectedType = "XNOR"
-		bullet_sprite.set_texture(XNOR)
 		_check_if_type_correct()
 		
 	#print(str(selectedType)+" "+str(isCorrect))
