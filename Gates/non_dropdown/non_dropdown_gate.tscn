@@ -10,21 +10,21 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="out" parent="." instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 4, 50 )
-
 [node name="in" parent="." instance=ExtResource( 2 )]
 visible = false
-position = Vector2( 89, 51 )
+position = Vector2( 71, 37 )
+
+[node name="out" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 0, 36 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 96.0
-margin_bottom = 96.0
+margin_right = 72.0
+margin_bottom = 72.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_right = 96.0
-margin_bottom = 96.0
+margin_right = 72.0
+margin_bottom = 72.0
 align = 1
 valign = 1

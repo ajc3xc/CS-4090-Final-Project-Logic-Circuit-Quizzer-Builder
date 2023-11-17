@@ -3,7 +3,7 @@
 [ext_resource path="res://Gates/nodes/node_multiple_lines.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 41.2311
+radius = 20.0998
 
 [node name="line_node" type="Node2D" groups=["line_node"]]
 position = Vector2( -1, 2 )

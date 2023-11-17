@@ -15,12 +15,30 @@ var NOR = preload("res://Assets/NOR.png")
 var XNOR = preload("res://Assets/XNOR.png")
 #onready var bullet_sprite = get_node("Sprite")
 
+#variables for enabling / disabling nodes connected to this
 var in_nodes = 0
+var out_nodes = 0
+
 var has_output = false
 
 func _ready():
 	add_items()
+	disable_gate_nodes_connecting()
+	set_nodes_to_enable()
 	enable_nodes()
+
+#prevent nodes in the same gate from connecting
+func disable_gate_nodes_connecting():
+	var child_line_nodes = []
+	
+	for child in get_children():
+		if child.is_in_group("line_node"):
+			child_line_nodes.append(child)
+	
+	#set their list of gate nodes
+	for child in get_children():
+		if child.is_in_group("line_node"):
+			child.gate_nodes = child_line_nodes
 
 func add_items():
 	
@@ -32,15 +50,19 @@ func add_items():
 	drop_down_menu.add_icon_item(NAND, "    ", 5)
 	drop_down_menu.add_icon_item(NOR, "    ", 6)
 	drop_down_menu.add_icon_item(XNOR, "    ", 7)
+
+func set_nodes_to_enable():
+	pass
 	
 func enable_nodes():
-	"""
-	if has_output:
-		$out_node.set_visible(true)
 	if in_nodes == 1:
-		$single_in_node.set_visible(true)
+		get_node("mid_in_node").show()
 	elif in_nodes == 2:
-		$"""
+		get_node("up_in_node").show()
+		get_node("low_in_node").show()
+	
+	if out_nodes==1:
+		get_node("out_node").show()
 	
 	
 func _on_OptionButton_item_selected(index):
@@ -49,28 +71,21 @@ func _on_OptionButton_item_selected(index):
 	
 	if current_selected == 0:
 		selectedType = "None"
-	if current_selected == 0:
-		selectedType = "OR"
-		#bullet_sprite.set_texture(OR)
-		_check_if_type_correct()
 	elif current_selected == 1:
-		selectedType = "AND"
-		_check_if_type_correct()
+		selectedType = "OR"
 	elif current_selected == 2:
-		selectedType = "XOR"
-		_check_if_type_correct()
+		selectedType = "AND"
 	elif current_selected == 3:
-		selectedType = "NOT"
-		_check_if_type_correct()
+		selectedType = "XOR"
 	elif current_selected == 4:
-		selectedType = "NAND"
-		_check_if_type_correct()
+		selectedType = "NOT"
 	elif current_selected == 5:
+		selectedType = "NAND"
+	elif current_selected == 6:
 		selectedType = "NOR"
-		_check_if_type_correct()
 	elif current_selected == 6:
 		selectedType = "XNOR"
-		_check_if_type_correct()
+	_check_if_type_correct()
 		
 	#print(str(selectedType)+" "+str(isCorrect))
 	

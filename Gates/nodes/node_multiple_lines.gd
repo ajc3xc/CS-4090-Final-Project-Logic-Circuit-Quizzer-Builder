@@ -2,7 +2,7 @@ tool
 extends Node2D
 
 #variables for circle
-var circle_radius = 40
+var circle_radius = 20
 var circle_color = Color.black
 var original_invalid_color #used when hovering over a gate to turn it red if you're dragging the mouse while entering
 var circle_position = Vector2.ZERO #where circle originates from

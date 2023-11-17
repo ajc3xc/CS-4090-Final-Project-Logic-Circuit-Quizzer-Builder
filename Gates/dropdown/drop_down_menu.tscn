@@ -1,18 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Gates/dropdown/drop_down_menu.gd" type="Script" id=1]
+[ext_resource path="res://Gates/nodes/node_multiple_lines.tscn" type="PackedScene" id=2]
 
 [node name="Drop_Down_Menu" type="Node2D" groups=["gates"]]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 margin_left = 2.0
 margin_right = 419.0
 margin_bottom = 242.0
 color = Color( 0, 0, 0, 1 )
 
+[node name="out_node" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 193, 53 )
+
+[node name="up_in_node" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( -2, 20 )
+
+[node name="mid_in_node" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( -1, 52 )
+
+[node name="low_in_node" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( -1, 86 )
+
 [node name="OptionButton" type="OptionButton" parent="."]
-margin_right = 420.0
-margin_bottom = 244.0
+margin_right = 170.0
+margin_bottom = 107.0
+rect_scale = Vector2( 1.01899, 0.928536 )
 
 [connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

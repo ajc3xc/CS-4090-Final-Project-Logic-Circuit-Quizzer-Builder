@@ -15,8 +15,19 @@ func setup_gate():
 func _ready():
 	#get list of child line nodes
 	setup_gate()
-	var child_line_nodes = []
+	disable_gate_nodes_connecting()
 	var label = get_node("Label")
+	
+	label.text = label_text
+	if show_in_node:
+		get_node("in").show()
+	if show_out_node:
+		get_node("out").show()
+
+#prevent nodes in the same gate from connecting
+func disable_gate_nodes_connecting():
+	var child_line_nodes = []
+	
 	for child in get_children():
 		if child.is_in_group("line_node"):
 			child_line_nodes.append(child)
@@ -25,9 +36,3 @@ func _ready():
 	for child in get_children():
 		if child.is_in_group("line_node"):
 			child.gate_nodes = child_line_nodes
-	
-	label.text = label_text
-	if show_in_node:
-		get_node("in").show()
-	if show_out_node:
-		get_node("out").show()
