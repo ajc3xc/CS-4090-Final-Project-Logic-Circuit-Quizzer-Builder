@@ -4,7 +4,6 @@
 [ext_resource path="res://Gates/nodes/node_multiple_lines.tscn" type="PackedScene" id=2]
 
 [node name="non_clickable_gate" type="Node2D"]
-position = Vector2( 0, -1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -18,7 +17,7 @@ position = Vector2( 71, 37 )
 visible = false
 position = Vector2( 0, 36 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="gateColor" type="ColorRect" parent="."]
 margin_right = 72.0
 margin_bottom = 72.0
 color = Color( 0, 0, 0, 1 )
@@ -28,3 +27,6 @@ margin_right = 72.0
 margin_bottom = 72.0
 align = 1
 valign = 1
+
+[connection signal="mouse_entered" from="gateColor" to="." method="_on_gateColor_mouse_entered"]
+[connection signal="mouse_exited" from="gateColor" to="." method="_on_gateColor_mouse_exited"]

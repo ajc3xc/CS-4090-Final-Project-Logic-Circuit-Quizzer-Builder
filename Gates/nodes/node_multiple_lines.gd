@@ -101,7 +101,24 @@ func _on_Area2D_mouse_exited():
 		if not is_connected:
 			reset_circle()
 
-######################################################
+#adjusts the lines when the node itself is moved
+func adjust_connections_when_node_moved(position_delta: Vector2):
+	#calcula
+	var offset_in_circle
+	var offset_inverted
+	var offset_in_circle_inverted
+	for member in connected_nodes:
+		#change drawn line for this node
+		offset = member.global_position - global_position
+		offset_in_circle = offset.normalized() * circle_radius
+		offset = offset - offset_in_circle
+		connected_nodes[member]["end"] = offset
+		connected_nodes[member]["start"] = offset_in_circle
+	update()
+	
+	
+
+#sets is_connected to true or false based on whether there are any connected nodes
 func set_is_connected():
 	if connected_nodes.size() <= 0:
 		is_connected = false
@@ -194,16 +211,14 @@ func _physics_process(delta):
 						connected_new_line.set_default_color(Color.white)
 						last_connected_node.add_child(connected_new_line)
 						
-						var offset_inverted = Vector2.ZERO - offset
-						var offset_in_circle_inverted = Vector2.ZERO - offset_in_circle
 						
+						#draw an empty line for the connected node
 						last_connected_node.change_circle_color(Color.white)
 						last_connected_node.connected_nodes[self] = {"line": connected_new_line,
-														"start": offset_in_circle_inverted,
-														"end": offset_inverted}
+														"start": Vector2.ZERO,
+														"end": Vector2.ZERO}
 						
-						change_line_start(offset_in_circle)
-						draw_connecting_line(offset)
+						draw_connecting_line(circle_position)
 						
 						#set is_connected to true for both
 						is_connected = true
