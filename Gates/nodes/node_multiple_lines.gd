@@ -102,7 +102,7 @@ func _on_Area2D_mouse_exited():
 			reset_circle()
 
 #adjusts the lines when the node itself is moved
-func adjust_connections_when_node_moved(position_delta: Vector2):
+func adjust_connections_when_node_moved():
 	#calcula
 	var offset_in_circle
 	var offset_inverted
@@ -114,6 +114,9 @@ func adjust_connections_when_node_moved(position_delta: Vector2):
 		offset = offset - offset_in_circle
 		connected_nodes[member]["end"] = offset
 		connected_nodes[member]["start"] = offset_in_circle
+		member.connected_nodes[self]["end"] = Vector2.ZERO
+		member.connected_nodes[self]["start"] = Vector2.ZERO
+		member.update()
 	update()
 	
 	

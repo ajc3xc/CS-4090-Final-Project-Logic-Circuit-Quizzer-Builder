@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://Gates/gate.gd"
 
 onready var drop_down_menu = $OptionButton
 
@@ -13,7 +13,9 @@ var NOT = preload("res://Assets/NOT.png")
 var NAND = preload("res://Assets/NAND.png")
 var NOR = preload("res://Assets/NOR.png")
 var XNOR = preload("res://Assets/XNOR.png")
-#onready var bullet_sprite = get_node("Sprite")
+
+#used in professor mode only
+onready var bullet_sprite = get_node("Sprite") #show type of node selected
 
 #variables for enabling / disabling nodes connected to this
 var in_nodes = 0
@@ -22,10 +24,13 @@ var out_nodes = 0
 var has_output = false
 
 func _ready():
+	set_background_sprite_visibility()
+	set_sprite() #sets which sprite to be used in professor mode
 	add_items()
 	disable_gate_nodes_connecting()
 	set_nodes_to_enable()
 	enable_nodes()
+	create_visible_nodes_list()
 
 #prevent nodes in the same gate from connecting
 func disable_gate_nodes_connecting():
@@ -40,8 +45,19 @@ func disable_gate_nodes_connecting():
 		if child.is_in_group("line_node"):
 			child.gate_nodes = child_line_nodes
 
+func set_background_sprite_visibility():
+	if global.professor_mode:
+		gateColor.show()
+		bullet_sprite.show()
+	else:
+		gateColor.hide()
+		bullet_sprite.hide()
+
+#used in inherited nodes
+func set_sprite():
+	bullet_sprite.set_texture(NONE)
+
 func add_items():
-	
 	drop_down_menu.add_icon_item(NONE, "    ", 0)
 	drop_down_menu.add_icon_item(OR, "    ", 1)
 	drop_down_menu.add_icon_item(AND, "    ", 2)
@@ -94,4 +110,3 @@ func _on_OptionButton_item_selected(index):
 #used in inhereited nodes
 func _check_if_type_correct():
 	pass
-	

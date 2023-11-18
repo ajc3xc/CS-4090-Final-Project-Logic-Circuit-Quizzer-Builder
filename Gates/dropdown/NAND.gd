@@ -6,6 +6,9 @@ func set_nodes_to_enable():
 
 var gateType = "NAND"
 
+func set_sprite():
+	bullet_sprite.set_texture(NAND)
+
 #used in inhereited nodes
 func _check_if_type_correct():
 	isCorrect = (selectedType == gateType)
