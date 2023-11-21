@@ -31,19 +31,7 @@ func _ready():
 	set_nodes_to_enable()
 	enable_nodes()
 	create_visible_nodes_list()
-
-#prevent nodes in the same gate from connecting
-func disable_gate_nodes_connecting():
-	var child_line_nodes = []
-	
-	for child in get_children():
-		if child.is_in_group("line_node"):
-			child_line_nodes.append(child)
-	
-	#set their list of gate nodes
-	for child in get_children():
-		if child.is_in_group("line_node"):
-			child.gate_nodes = child_line_nodes
+	#global.connect("professor_mode_change", self, custom_signal())
 
 func set_background_sprite_visibility():
 	#print(global.professor_mode)
