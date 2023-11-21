@@ -70,7 +70,7 @@ func draw_connecting_line(mouse_position: Vector2):
 func _on_Area2D_mouse_entered():
 	hovered_over = true
 	#check if color was changed
-	if not global.is_dragging and not global.node_selected:
+	if not global.is_dragging and not global.node_selected and global.professor_mode:
 		#print("area entered")
 		global.node_selected = true
 		if not Input.is_action_pressed("left_click"):

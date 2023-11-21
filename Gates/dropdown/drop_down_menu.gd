@@ -46,6 +46,7 @@ func disable_gate_nodes_connecting():
 			child.gate_nodes = child_line_nodes
 
 func set_background_sprite_visibility():
+	#print(global.professor_mode)
 	if global.professor_mode:
 		gateColor.show()
 		bullet_sprite.show()

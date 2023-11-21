@@ -32,6 +32,7 @@ margin_bottom = 107.0
 rect_scale = Vector2( 1.01899, 0.928536 )
 
 [node name="gateColor" type="ColorRect" parent="."]
+visible = false
 margin_left = -1.0
 margin_right = 200.0
 margin_bottom = 110.0
