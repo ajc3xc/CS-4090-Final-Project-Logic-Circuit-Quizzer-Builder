@@ -17,5 +17,10 @@ func _ready():
 
 
 func _on_Save_Scene_Button_pressed():
+	var new_node = $Node2D
+	var new_scene = PackedScene.new()
 	
-	pass # Replace with function body.
+	new_scene.pack(new_node)
+	ResourceSaver.save(new_scene, "res://NewLevel.tscn")
+	
+	

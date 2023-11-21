@@ -17,4 +17,5 @@ func _ready():
 
 
 func _on_Delete_Button_pressed():
+	#need to implement a drag onto delete button or just delete hightlighted object
 	pass # Replace with function body.

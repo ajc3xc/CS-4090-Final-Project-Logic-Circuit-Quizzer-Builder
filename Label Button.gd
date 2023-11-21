@@ -18,10 +18,21 @@ func _ready():
 
 #create  a function to create the object mentioned in button
 func _on_Label_Button_pressed():
+	#creates a label that isnt customizable yet and doesnt show up on background
+	#create a static object to be background that isnt interactable?
+
 	print("Label has been pressed")
-	var textBox= Label.new()
-	Label.create()
+	var label_text = "This is a new label"
+	var textBox = Label.new()
+	textBox.rect_global_position = Vector2(50,100)
+	textBox.text = label_text
+	add_child(textBox)
+	print("Label has been created")
 	
 	
 	
-	pass # Replace with function body.
+	
+	
+	
+	
+	pass # Replace with function body.S

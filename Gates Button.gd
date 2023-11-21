@@ -17,4 +17,7 @@ func _ready():
 
 #create  a function to create the object mentioned in button
 func _on_Gates_Button_pressed():
+	#Create a movable input node on button press
+	#POSTMERGE
+	#need to look at adam's functions for this
 	pass # Replace with function body.
