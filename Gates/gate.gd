@@ -67,3 +67,16 @@ func _physics_process(delta):
 					line_node.adjust_connections_when_node_moved()
 		elif Input.is_action_just_released("left_click"):
 			global.is_dragging = false
+			
+func check_if_bounding_box_entered(body):
+	#if self.visible and body.is_in_group("bounding_box"):
+	#	print(body)
+	if body.is_in_group("bounding_box"):
+		print(body)
+
+func _on_Area2D_body_entered(body):
+	print(".")
+
+
+func _on_Area2D_body_exited(body):
+	print("!")
