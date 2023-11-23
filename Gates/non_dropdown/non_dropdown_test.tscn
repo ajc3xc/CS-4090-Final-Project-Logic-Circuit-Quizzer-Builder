@@ -11,7 +11,7 @@
 script = ExtResource( 5 )
 
 [node name="boundary_box" parent="." instance=ExtResource( 6 )]
-position = Vector2( 14, -2 )
+position = Vector2( 17, -1 )
 
 [node name="in_off_gate" parent="." instance=ExtResource( 1 )]
 position = Vector2( 46, 77 )

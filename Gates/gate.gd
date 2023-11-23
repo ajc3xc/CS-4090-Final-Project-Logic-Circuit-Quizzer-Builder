@@ -100,8 +100,25 @@ func _on_Area2D_body_entered(body):
 	if body.is_in_group("bounding_box"):
 		in_bounds = true
 
+#don't mess with the boundary box, and these calculations should be fine
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("bounding_box"):
+		#var max_bounds = 2 * body.get_node("CollisionBox").global_position# - gateSize
+		#var min_bounds = body.global_position
+		#var max_bounds = min_bounds + 2 * body.get_node("CollisionBox").global_position# - gateSize
+		
+		#print(max_bounds)
+		#print(min_bounds)
+		#print(global_position)
+		#if global_position.x > 
+		
+		#print(body.get_node("CollisionBox").global_position)
+		#print(body.get_node("CollisionBox").global_position - body.get_node("CollisionBox").get_shape().get_extents())
+		#min_bounds = body.get_node("CollisionBox").global_position
+		#print(body.get_node("CollisionBox").global_position)
 		in_bounds = false
-		last_position_in_bounds = global_position# - gateSize
-		print(global_position)
+		#this is a cheap fix. It works, but it isn't great
+		#It moves it to the center of the collision box
+		#ensures that gates can never leave collision box
+		last_position_in_bounds = body.get_node("CollisionBox").global_position - gateSize / 2
+		#print(global_position)

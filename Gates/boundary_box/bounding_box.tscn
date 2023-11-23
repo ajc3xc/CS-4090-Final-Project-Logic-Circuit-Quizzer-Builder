@@ -5,7 +5,7 @@ extents = Vector2( 319, 300 )
 
 [node name="boundary_box" type="StaticBody2D" groups=["bounding_box"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 319, 300 )
 shape = SubResource( 1 )
 
