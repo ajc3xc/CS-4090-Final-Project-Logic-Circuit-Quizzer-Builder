@@ -11,8 +11,11 @@ var draggable: bool = false
 var original_invalid_color: Color
 
 #variables for bounding box (make sure gates can't be dragged off screen)
-var last_position_in_bounds: Vector2
+var reset_position: Vector2
 var in_bounds: bool = false
+
+#variable for trash bin button (delete node if it is dragged to trash bin)
+var over_trash_bin: bool = false
 
 #done at start of program
 #by only looping through nodes that are 
@@ -71,12 +74,14 @@ func _physics_process(delta):
 					line_node.adjust_connections_when_node_moved()
 		elif Input.is_action_just_released("left_click"):
 			global.is_dragging = false
+			if over_trash_bin:
+				remove_gate()
 			if not in_bounds:
 				#remove gate from list if it never was placed in bounding box
-				if not last_position_in_bounds:
+				if not reset_position:
 					remove_gate()
 				else:
-					global_position = last_position_in_bounds
+					global_position = reset_position
 					in_bounds = true
 					adjust_connected_lines()
 
@@ -99,26 +104,17 @@ func remove_gate():
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("bounding_box"):
 		in_bounds = true
+	#delete node if it is hovered over the trash bin
+	elif body.is_in_group("trash_bin"):
+		over_trash_bin = true
 
 #don't mess with the boundary box, and these calculations should be fine
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("bounding_box"):
-		#var max_bounds = 2 * body.get_node("CollisionBox").global_position# - gateSize
-		#var min_bounds = body.global_position
-		#var max_bounds = min_bounds + 2 * body.get_node("CollisionBox").global_position# - gateSize
-		
-		#print(max_bounds)
-		#print(min_bounds)
-		#print(global_position)
-		#if global_position.x > 
-		
-		#print(body.get_node("CollisionBox").global_position)
-		#print(body.get_node("CollisionBox").global_position - body.get_node("CollisionBox").get_shape().get_extents())
-		#min_bounds = body.get_node("CollisionBox").global_position
-		#print(body.get_node("CollisionBox").global_position)
 		in_bounds = false
 		#this is a cheap fix. It works, but it isn't great
 		#It moves it to the center of the collision box
 		#ensures that gates can never leave collision box
-		last_position_in_bounds = body.get_node("CollisionBox").global_position - gateSize / 2
-		#print(global_position)
+		reset_position = body.get_node("CollisionBox").global_position - gateSize / 2
+	elif body.is_in_group("trash_bin"):
+		over_trash_bin = false

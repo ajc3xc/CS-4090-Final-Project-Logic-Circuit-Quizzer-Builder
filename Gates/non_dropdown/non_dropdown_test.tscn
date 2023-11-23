@@ -11,16 +11,16 @@
 script = ExtResource( 5 )
 
 [node name="boundary_box" parent="." instance=ExtResource( 6 )]
-position = Vector2( 17, -1 )
+position = Vector2( 139, -2 )
 
 [node name="in_off_gate" parent="." instance=ExtResource( 1 )]
-position = Vector2( 46, 77 )
+position = Vector2( 150, 80 )
 
 [node name="in_on_gate" parent="." instance=ExtResource( 3 )]
-position = Vector2( 64, 321 )
+position = Vector2( 154, 317 )
 
 [node name="out_gate" parent="." instance=ExtResource( 2 )]
 position = Vector2( 692, 216 )
 
 [node name="connector_gate" parent="." instance=ExtResource( 4 )]
-position = Vector2( 352, 218 )
+position = Vector2( 463, 218 )
