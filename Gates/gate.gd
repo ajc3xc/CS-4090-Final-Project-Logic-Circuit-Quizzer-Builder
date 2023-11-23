@@ -7,8 +7,12 @@ onready var gateSize = gateColor.get_size()
 onready var visible_line_nodes
 
 #variables for dragging around node
-var draggable = false
-var original_invalid_color
+var draggable: bool = false
+var original_invalid_color: Color
+
+#variables for bounding box (make sure gates can't be dragged off screen)
+var last_position_in_bounds: Vector2
+var in_bounds: bool = false
 
 #done at start of program
 #by only looping through nodes that are 
@@ -67,16 +71,37 @@ func _physics_process(delta):
 					line_node.adjust_connections_when_node_moved()
 		elif Input.is_action_just_released("left_click"):
 			global.is_dragging = false
-			
-func check_if_bounding_box_entered(body):
-	#if self.visible and body.is_in_group("bounding_box"):
-	#	print(body)
-	if body.is_in_group("bounding_box"):
-		print(body)
+			if not in_bounds:
+				#remove gate from list if it never was placed in bounding box
+				if not last_position_in_bounds:
+					remove_gate()
+				else:
+					global_position = last_position_in_bounds
+					in_bounds = true
+					adjust_connected_lines()
+
+#adjust lines connected to gate
+func adjust_connected_lines():
+	for node in visible_line_nodes:
+		node.adjust_connections_when_node_moved()
+
+#undraw all lines connected to gate, then remove
+func remove_gate():
+	#I'm assuming whoever uses this code
+	#isn't foolish enough to have invisible line nodes be connected to other line nodes
+	for node in visible_line_nodes:
+		for connected_node in node.connected_nodes.keys():
+			node.erase_connection(connected_node)
+	
+	#delete this gate once finished disconnecting
+	queue_free()
 
 func _on_Area2D_body_entered(body):
-	print(".")
-
+	if body.is_in_group("bounding_box"):
+		in_bounds = true
 
 func _on_Area2D_body_exited(body):
-	print("!")
+	if body.is_in_group("bounding_box"):
+		in_bounds = false
+		last_position_in_bounds = global_position# - gateSize
+		print(global_position)

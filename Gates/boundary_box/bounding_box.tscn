@@ -12,4 +12,5 @@ shape = SubResource( 1 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 638.0
 margin_bottom = 599.0
+mouse_filter = 2
 color = Color( 1, 1, 1, 0.12549 )
