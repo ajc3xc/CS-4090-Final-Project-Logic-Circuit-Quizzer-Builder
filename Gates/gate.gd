@@ -16,6 +16,7 @@ var in_bounds: bool = false
 
 #variable for trash bin button (delete node if it is dragged to trash bin)
 var over_trash_bin: bool = false
+var trash_bin_color: ColorRect #remember the button you just hovered over
 
 #done at start of program
 #by only looping through nodes that are 
@@ -92,6 +93,8 @@ func adjust_connected_lines():
 
 #undraw all lines connected to gate, then remove
 func remove_gate():
+	if trash_bin_color:
+		trash_bin_color.color = Color.orange
 	#I'm assuming whoever uses this code
 	#isn't foolish enough to have invisible line nodes be connected to other line nodes
 	for node in visible_line_nodes:
@@ -107,6 +110,9 @@ func _on_Area2D_body_entered(body):
 	#delete node if it is hovered over the trash bin
 	elif body.is_in_group("trash_bin"):
 		over_trash_bin = true
+		trash_bin_color = body.get_node("ColorRect")
+		#print(Color.orange)
+		trash_bin_color.color = Color.darkgray
 
 #don't mess with the boundary box, and these calculations should be fine
 func _on_Area2D_body_exited(body):
@@ -118,3 +124,5 @@ func _on_Area2D_body_exited(body):
 		reset_position = body.get_node("CollisionBox").global_position - gateSize / 2
 	elif body.is_in_group("trash_bin"):
 		over_trash_bin = false
+		trash_bin_color.color = Color.orange
+		trash_bin_color = null
