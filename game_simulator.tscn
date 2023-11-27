@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Gates/dropdown/OR.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Gates/dropdown/AND.tscn" type="PackedScene" id=2]
@@ -12,85 +12,6 @@
 [ext_resource path="res://UI/Trash_Bin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/Clear_Button.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Gates/dropdown/NAND.gd" type="Script" id=12]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-var save_name_input: LineEdit
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	connect(\"pressed\", self, \"_on_button_pressed\")
-	#should enable the line editor to recieve name of file 
-	save_name_input = $Button/Level_Namer
-
-func _on_Button_pressed():
-	var scene = get_tree().get_edited_scene_root()
-	
-	if scene:
-		#Prompt user for save name
-		var dialog = FileDialog.new()
-		dialog.mode = FileDialog.MODE_SAVE_FILE
-		dialog.popup_centered()
-		print(\"choosing scene, should pop up to fill text\")
-		
-		dialog.connect(\"file_selected\", self, \"_on_FileDialog_files_selected\", [scene])
-	else:
-		print(\"Error: Scene is empty\")
-
-func _on_FileDialog_files_selected(paths, scene):
-	#saves the scene as a new .tscn file
-	var save_path = paths
-	
-	if not save_path.ends_with(\".tscn\"):
-		save_path += \".tscn\"
-	
-	scene.save_packed(save_path)
-	
-	print(\"Scene saved as:\", save_path)
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Node2D
-
-var scene_name_input: LineEdit
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	scene_name_input = LineEdit.new()
-	add_child(scene_name_input)
-	#prompts user for name when pressed
-	#has error where textbox shows on start
-	scene_name_input.rect_min_size = Vector2(200, 30)
-	scene_name_input.placeholder_text = \"Enter Scene name(No .tscn)\"
-	scene_name_input.connect(\"text_entered\", self, \"_on_LineEdit_text_entered\")
-
-
-
-func _on_LineEdit_text_entered(new_text):
-	#Uses name of scene entered to launch a new scene
-	var scene_name = new_text
-	
-	if scene_name != \"\":
-		var scene_path = \"res://\"+scene_name+\".tscn\"
-		#checks if its real
-		if ResourceLoader.exists(scene_path):
-			#loads in new scene 
-			var scene_instance = load(scene_path)
-			add_child(scene_instance)
-			print(\"Scene loaded:\", scene_path)
-			
-			#Errors
-		else:
-			print(\"Error: Scene not found at\", scene_path)
-	else:
-		print(\"Error: Please enter a scene name that is valid.\")
-"
 
 [node name="game_simulator" type="Node2D"]
 script = ExtResource( 3 )
@@ -145,46 +66,4 @@ position = Vector2( 542, 114 )
 [node name="out_gate" parent="." instance=ExtResource( 8 )]
 position = Vector2( 793, 109 )
 
-[node name="Save Level" type="Node2D" parent="."]
-position = Vector2( 894, 257 )
-script = SubResource( 1 )
-
-[node name="Button" type="Button" parent="Save Level"]
-margin_left = 1.0
-margin_top = 3.0
-margin_right = 111.0
-margin_bottom = 50.0
-text = "Save Level"
-
-[node name="Level_Namer" type="LineEdit" parent="Save Level/Button"]
-margin_left = -9.0
-margin_top = -50.0
-margin_right = 119.0
-margin_bottom = -2.0
-text = "Name Level Here"
-align = 1
-
-[node name="FileDialog" type="FileDialog" parent="Save Level/Button"]
-margin_right = 315.0
-margin_bottom = 130.0
-
-[node name="Load Level" type="Node2D" parent="."]
-position = Vector2( 898, 40 )
-script = SubResource( 2 )
-
-[node name="Button" type="Button" parent="Load Level"]
-margin_top = 26.0
-margin_right = 107.0
-margin_bottom = 76.0
-text = "Load Level"
-
-[node name="LineEdit" type="LineEdit" parent="Load Level/Button"]
-margin_top = -25.0
-margin_right = 58.0
-margin_bottom = -1.0
-
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="Save Level/Button" to="Save Level" method="_on_Button_pressed"]
-[connection signal="text_entered" from="Save Level/Button/Level_Namer" to="Save Level" method="_on_Level_Namer_text_entered"]
-[connection signal="files_selected" from="Save Level/Button/FileDialog" to="Save Level" method="_on_FileDialog_files_selected"]
-[connection signal="text_entered" from="Load Level/Button/LineEdit" to="Load Level" method="_on_LineEdit_text_entered"]
