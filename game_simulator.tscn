@@ -12,8 +12,85 @@
 [ext_resource path="res://UI/Trash_Bin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://UI/Clear_Button.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Gates/dropdown/NAND.gd" type="Script" id=12]
-[ext_resource path="res://SaveLevel.gd" type="Script" id=13]
-[ext_resource path="res://Load Level.gd" type="Script" id=14]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var save_name_input: LineEdit
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	connect(\"pressed\", self, \"_on_button_pressed\")
+	#should enable the line editor to recieve name of file 
+	save_name_input = $Button/Level_Namer
+
+func _on_Button_pressed():
+	var scene = get_tree().get_edited_scene_root()
+	
+	if scene:
+		#Prompt user for save name
+		var dialog = FileDialog.new()
+		dialog.mode = FileDialog.MODE_SAVE_FILE
+		dialog.popup_centered()
+		print(\"choosing scene, should pop up to fill text\")
+		
+		dialog.connect(\"file_selected\", self, \"_on_FileDialog_files_selected\", [scene])
+	else:
+		print(\"Error: Scene is empty\")
+
+func _on_FileDialog_files_selected(paths, scene):
+	#saves the scene as a new .tscn file
+	var save_path = paths
+	
+	if not save_path.ends_with(\".tscn\"):
+		save_path += \".tscn\"
+	
+	scene.save_packed(save_path)
+	
+	print(\"Scene saved as:\", save_path)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+var scene_name_input: LineEdit
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	scene_name_input = LineEdit.new()
+	add_child(scene_name_input)
+	#prompts user for name when pressed
+	#has error where textbox shows on start
+	scene_name_input.rect_min_size = Vector2(200, 30)
+	scene_name_input.placeholder_text = \"Enter Scene name(No .tscn)\"
+	scene_name_input.connect(\"text_entered\", self, \"_on_LineEdit_text_entered\")
+
+
+
+func _on_LineEdit_text_entered(new_text):
+	#Uses name of scene entered to launch a new scene
+	var scene_name = new_text
+	
+	if scene_name != \"\":
+		var scene_path = \"res://\"+scene_name+\".tscn\"
+		#checks if its real
+		if ResourceLoader.exists(scene_path):
+			#loads in new scene 
+			var scene_instance = load(scene_path)
+			add_child(scene_instance)
+			print(\"Scene loaded:\", scene_path)
+			
+			#Errors
+		else:
+			print(\"Error: Scene not found at\", scene_path)
+	else:
+		print(\"Error: Please enter a scene name that is valid.\")
+"
 
 [node name="game_simulator" type="Node2D"]
 script = ExtResource( 3 )
@@ -70,7 +147,7 @@ position = Vector2( 793, 109 )
 
 [node name="Save Level" type="Node2D" parent="."]
 position = Vector2( 894, 257 )
-script = ExtResource( 13 )
+script = SubResource( 1 )
 
 [node name="Button" type="Button" parent="Save Level"]
 margin_left = 1.0
@@ -93,7 +170,7 @@ margin_bottom = 130.0
 
 [node name="Load Level" type="Node2D" parent="."]
 position = Vector2( 898, 40 )
-script = ExtResource( 14 )
+script = SubResource( 2 )
 
 [node name="Button" type="Button" parent="Load Level"]
 margin_top = 26.0
