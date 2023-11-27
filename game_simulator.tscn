@@ -27,10 +27,14 @@ position = Vector2( 893, 447 )
 position = Vector2( 7, 33 )
 
 [node name="in_on_gate" parent="." instance=ExtResource( 6 )]
-position = Vector2( 14, 219 )
+position = Vector2( 12, 206 )
 
 [node name="AND" parent="." instance=ExtResource( 2 )]
 position = Vector2( 179, 40 )
+
+[node name="NAND" parent="." instance=ExtResource( 2 )]
+position = Vector2( 187, 319 )
+script = ExtResource( 12 )
 
 [node name="OR" parent="." instance=ExtResource( 1 )]
 position = Vector2( 189, 172 )
@@ -42,7 +46,45 @@ position = Vector2( 410, 119 )
 position = Vector2( 542, 114 )
 
 [node name="out_gate" parent="." instance=ExtResource( 8 )]
-position = Vector2( 791, 175 )
+position = Vector2( 793, 109 )
+
+[node name="Save Level" type="Node2D" parent="."]
+position = Vector2( 894, 257 )
+script = ExtResource( 13 )
+
+[node name="Button" type="Button" parent="Save Level"]
+margin_left = 1.0
+margin_top = 3.0
+margin_right = 111.0
+margin_bottom = 50.0
+text = "Save Level"
+
+[node name="Level_Namer" type="LineEdit" parent="Save Level/Button"]
+margin_left = -9.0
+margin_top = -50.0
+margin_right = 119.0
+margin_bottom = -2.0
+text = "Name Level Here"
+align = 1
+
+[node name="FileDialog" type="FileDialog" parent="Save Level/Button"]
+margin_right = 315.0
+margin_bottom = 130.0
+
+[node name="Load Level" type="Node2D" parent="."]
+position = Vector2( 898, 40 )
+script = ExtResource( 14 )
+
+[node name="Button" type="Button" parent="Load Level"]
+margin_top = 26.0
+margin_right = 107.0
+margin_bottom = 76.0
+text = "Load Level"
+
+[node name="LineEdit" type="LineEdit" parent="Load Level/Button"]
+margin_top = -25.0
+margin_right = 58.0
+margin_bottom = -1.0
 
 [node name="Clear_Button" parent="." instance=ExtResource( 11 )]
 position = Vector2( 785, 326 )
