@@ -63,11 +63,11 @@ func _on_CONNECT_button_down():
 	spawn_gate(CONNECT)
 
 func spawn_gate(gateType: PackedScene):
-	print(gateType)
-	var gate = gateType.instance()
-	var gate_centered: Vector2 = gate.get_node("gateColor").get_size() / 2
-	
-	var gate_start_position: Vector2 = get_global_mouse_position() - gate_centered
-	gate.position = gate_start_position
-	gate.draggable = true
-	add_child(gate)
+	if global.professor_mode and not global.is_dragging:
+		var gate = gateType.instance()
+		var gate_centered: Vector2 = gate.get_node("gateColor").get_size() / 2
+		
+		var gate_start_position: Vector2 = get_global_mouse_position() - gate_centered
+		gate.position = gate_start_position
+		gate.draggable = true
+		add_child(gate)
