@@ -1,13 +1,21 @@
-extends Node2D
+extends "set_visibility.gd"
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	global.professor_mode = true
+	game_mode_ui = true
 
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
 
-#check if all options selected are true
+
 func _on_Button_pressed():
 	var allCorrect = true
 	
