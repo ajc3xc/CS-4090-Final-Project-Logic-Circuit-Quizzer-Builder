@@ -21,6 +21,7 @@ func _on_Button_pressed():
 		var dialog = FileDialog.new()
 		dialog.mode = FileDialog.MODE_SAVE_FILE
 		dialog.popup_centered()
+		print("choosing scene, should pop up to fill text")
 		
 		dialog.connect("file_selected", self, "_on_FileDialog_files_selected", [scene])
 	else:
