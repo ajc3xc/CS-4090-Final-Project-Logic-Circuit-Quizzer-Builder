@@ -15,3 +15,4 @@ func set_professor_mode(val: bool):
 	#change_professor_mode.emit()
 	emit_signal("change_professor_mode", self)
 	get_tree().call_group("gates", "set_background_sprite_visibility")
+	get_tree().call_group("UI", "set_visibility")

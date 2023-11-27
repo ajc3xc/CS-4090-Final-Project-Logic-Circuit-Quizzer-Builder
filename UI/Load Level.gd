@@ -1,4 +1,4 @@
-extends Node2D
+extends "set_visibility.gd"
 
 var scene_name_input: LineEdit
 

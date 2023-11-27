@@ -1,4 +1,4 @@
-extends Node2D
+extends "set_visibility.gd"
 
 #paths to location of gate scenes
 var AND = preload("res://Gates/dropdown/AND.tscn")

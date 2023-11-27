@@ -1,4 +1,4 @@
-extends Node2D
+extends "set_visibility.gd"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
