@@ -72,7 +72,7 @@ func spawn_gate(gateType: PackedScene):
 		gate.draggable = true
 		#get_tree().add_child(gate)
 		#add_child(gate)
-		get_tree().get_root().add_child(gate)
+		get_tree().get_root().get_node("game_simulator").add_child(gate)
 		#print(get_tree().get_root().get_children())
 		#print(get_node(NodePath))
 

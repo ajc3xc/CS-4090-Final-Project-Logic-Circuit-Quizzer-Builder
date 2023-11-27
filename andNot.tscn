@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Gates/boundary_box/bounding_box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Check_Button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Clear_Button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/Save_Button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/Set_Prof_Mode.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/Gate_Selection.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/Load_Button.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_simulator.gd" type="Script" id=9]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 0, -2 )
+script = ExtResource( 9 )
+
+[node name="Gate_Selection" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1, 4 )
+
+[node name="boundary_box" parent="." instance=ExtResource( 2 )]
+position = Vector2( 158, 4 )
+
+[node name="Check_Button" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 760, 497 )
+
+[node name="Clear_Button" parent="." instance=ExtResource( 4 )]
+position = Vector2( 872, 419 )
+
+[node name="Node2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 925, 321 )
+
+[node name="Save_Button" parent="." instance=ExtResource( 5 )]
+position = Vector2( 898, 234 )
+
+[node name="Set_Prof_Mode" parent="." instance=ExtResource( 6 )]
+position = Vector2( 867, 162 )
