@@ -4,7 +4,7 @@ func set_nodes_to_enable():
 	in_nodes = 2
 	out_nodes = 1
 
-var gateType = "XNOR"
+const gateType = "XNOR"
 
 func set_sprite():
 	bullet_sprite.set_texture(XNOR)
