@@ -24,7 +24,7 @@ position = Vector2( 760, 497 )
 [node name="Clear_Button" parent="." instance=ExtResource( 11 )]
 position = Vector2( 872, 419 )
 
-[node name="Node2D" parent="." instance=ExtResource( 4 )]
+[node name="Load_Button" parent="." instance=ExtResource( 4 )]
 position = Vector2( 925, 321 )
 
 [node name="Save_Button" parent="." instance=ExtResource( 5 )]
