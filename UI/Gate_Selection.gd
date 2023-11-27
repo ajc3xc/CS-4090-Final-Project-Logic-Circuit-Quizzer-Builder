@@ -70,4 +70,11 @@ func spawn_gate(gateType: PackedScene):
 		var gate_start_position: Vector2 = get_global_mouse_position() - gate_centered
 		gate.position = gate_start_position
 		gate.draggable = true
-		add_child(gate)
+		#get_tree().add_child(gate)
+		#add_child(gate)
+		get_tree().get_root().add_child(gate)
+		#print(get_tree().get_root().get_children())
+		#print(get_node(NodePath))
+
+func recursively_find_GateSelectionLevel():
+	pass
