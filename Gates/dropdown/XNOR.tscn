@@ -2,5 +2,4 @@
 
 [ext_resource path="res://Gates/dropdown/drop_down_menu.tscn" type="PackedScene" id=1]
 
-
 [node name="Drop_Down_Menu" instance=ExtResource( 1 )]
