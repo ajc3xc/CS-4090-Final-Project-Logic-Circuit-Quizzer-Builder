@@ -11,7 +11,8 @@ func _on_LevelSelection_pressed():
 	var saves = ("res://saves")
 	var texts = ""
 	var drop_down_menu = []
-		if 
-		else:
-			print("no more saves to load")
+		#if 1==1:
+		#	pass
+		#else:
+		#	print("no more saves to load")
 	print("Finished Loading all saves")
