@@ -1,8 +1,4 @@
-extends Node2D
-
-
-
-
+extends "res://UI/set_visibility.gd"
 
 func _ready():
 	pass # Replace with function body.
@@ -10,8 +6,10 @@ func _ready():
 
 
 
-func _on_LineEdit_text_entered(new_text):
-	var new_scene = new_text
+func _on_LineEdit_text_entered(save_file_name):
+	#testing
+	#save_file_dict()
+	var new_scene = save_file_name
 	var save_scene = PackedScene.new()
 	var save_node = Node2D.new()
 	save_node.name = "save_node"
@@ -34,9 +32,21 @@ func _on_LineEdit_text_entered(new_text):
 #				pass
 				#rint("Node saved")
 		#print(save_node.get_children())
-		for child in save_node.get_children():
-			 child.set_owner(save_node)
+		
 		print(save_node.get_children())
+		for gate in save_node.get_children():
+			gate.set_owner(save_node)
+			#gate.test_var = true
+			#for child in gate.get_children():
+			#	if child in gate.visible_line_nodes:
+			#		print(child)
+			#		child.name += "_saved"
+			#		child.set_owner(save_node)
+			#recursively_set_ownership(child, save_node)
+			
+		print(save_node.get_children())
+		for gate in save_node.get_children():
+			print(gate.test_var)
 		save_scene.pack(save_node)
 		ResourceSaver.save("res://saves/"+new_scene+".tscn", save_scene)
 		
@@ -46,5 +56,23 @@ func _on_LineEdit_text_entered(new_text):
 			save_node.remove_child(gate)
 			get_tree().get_root().add_child(gate)
 			
+		save_file_dict(saved_gates)
+			
 	else:
 		print("Error: Couldn't save empty scene")
+
+#func save_file_dict(saved_gates):
+#	var file = File.new()
+#	var save_file_path = "res://saves/test.out"
+#	file.open(save_file_path, file.WRITE)
+#	file.store_var("test")
+#	file.close()
+	
+	
+#set ownership of child node and all its descendants to the save node
+#func recursively_set_ownership(node, save_node):
+#	if node.is_in_group("line_node")
+#		node.name += "_saved"
+#		node.set_owner(save_node)
+#		for child in node.get_children():
+#			recursively_set_ownership(child, save_node)

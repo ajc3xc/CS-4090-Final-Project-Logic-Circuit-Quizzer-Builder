@@ -10,6 +10,8 @@ onready var visible_line_nodes
 var draggable: bool = false
 var original_invalid_color: Color
 
+var test_var
+
 #variables for bounding box (make sure gates can't be dragged off screen)
 var reset_position: Vector2
 var in_bounds: bool = false
@@ -44,7 +46,6 @@ func disable_gate_nodes_connecting():
 #this is only called if a line isn't actively being drawn
 func _on_gateColor_mouse_entered():
 	#check if color was changed
-	print(".")
 	if not global.is_dragging and not global.node_selected and global.professor_mode:
 		#print("area entered")
 		global.node_selected = true
