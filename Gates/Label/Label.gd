@@ -18,8 +18,13 @@ func _on_LineEdit_mouse_exited():
 		draggable = false
 		
 func set_visibility():
-	print(".")
+	if global.professor_mode:
+		get_node("LineEdit").visible = true
+		#get_node("gateColor").color = Color.dark
+		get_node("gateColor").color = Color("#2B2B2B")
+	else:
+		get_node("LineEdit").visible = false
+		get_node("gateColor").color = Color("#2B2B2B")
 
-
-func _on_LineEdit_text_entered(new_text):
-	pass # Replace with function body.
+func _on_LineEdit_text_changed(new_text):
+	get_node("Label").text = new_text
