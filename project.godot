@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="logic_quiz_demo"
-run/main_scene="res://game_simulator.tscn"
+run/main_scene="res://Main_Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
