@@ -56,7 +56,7 @@ func _on_LineEdit_text_entered(save_file_name):
 			save_node.remove_child(gate)
 			get_tree().get_root().add_child(gate)
 			
-		save_file_dict(saved_gates)
+		#save_file_dict(saved_gates)
 			
 	else:
 		print("Error: Couldn't save empty scene")
