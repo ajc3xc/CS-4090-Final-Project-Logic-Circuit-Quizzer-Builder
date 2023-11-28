@@ -38,7 +38,7 @@ func _on_LineEdit_text_entered(new_text):
 			 child.set_owner(save_node)
 		print(save_node.get_children())
 		save_scene.pack(save_node)
-		ResourceSaver.save("res://"+new_scene+".tscn", save_scene)
+		ResourceSaver.save("res://saves"+new_scene+".tscn", save_scene)
 		
 		#now that the scene is saved, reload the gates back into the scene
 		for gate in saved_gates:
