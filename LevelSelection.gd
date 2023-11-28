@@ -19,7 +19,8 @@ func _ready():
 func _on_LevelSelection_pressed():
 	var saves = ("res://saves")
 	var texts = ""
-	for i in saves:
-		texts.append(".tscn")
-		
-	pass
+	var drop_down_menu = []
+		if 
+		else:
+			print("no more saves to load")
+	print("Finished Loading all saves")
