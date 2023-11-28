@@ -15,6 +15,6 @@ func _on_LineEdit_text_entered(new_text):
 	if new_scene != "":
 		var packed_scene = PackedScene.new()
 		packed_scene.pack(get_tree().get_current_scene())
-		ResourceSaver.save("res://"+new_scene+".tscn", packed_scene)
+		ResourceSaver.save("res://saves"+new_scene+".tscn", packed_scene)
 	else:
 		print("Error: Couldn't save empty scene")
