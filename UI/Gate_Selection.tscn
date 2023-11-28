@@ -95,6 +95,7 @@ text = "Component Selection"
 align = 1
 valign = 1
 
+[connection signal="button_down" from="Panel/Label" to="." method="_on_Label_button_down"]
 [connection signal="button_down" from="Panel/AND" to="." method="_on_AND_button_down"]
 [connection signal="button_down" from="Panel/OR" to="." method="_on_OR_button_down"]
 [connection signal="button_down" from="Panel/XOR" to="." method="_on_XOR_button_down"]

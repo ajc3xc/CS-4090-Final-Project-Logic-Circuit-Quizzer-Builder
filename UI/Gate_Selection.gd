@@ -1,6 +1,7 @@
 extends "set_visibility.gd"
 
 #paths to location of gate scenes
+var LABEL = preload("res://Gates/Label/Label.tscn")
 var AND = preload("res://Gates/dropdown/AND.tscn")
 var OR = preload("res://Gates/dropdown/OR.tscn")
 var XOR = preload("res://Gates/dropdown/XOR.tscn")
@@ -23,6 +24,9 @@ func _ready():
 	#save_node.name = "nodes_to_save"
 	#print(save_node.get_path())
 
+func _on_Label_button_down():
+	spawn_gate(LABEL)
+	
 
 func _on_AND_button_down():
 	spawn_gate(AND)
@@ -87,6 +91,3 @@ func spawn_gate(gateType: PackedScene):
 		#get_tree().get_root().get_node("game_simulator").add_child(gate)
 		#print(get_tree().get_root().get_children())
 		#print(get_node(NodePath))
-
-func recursively_find_GateSelectionLevel():
-	pass

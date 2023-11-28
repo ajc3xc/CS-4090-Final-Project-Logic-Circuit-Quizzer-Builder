@@ -24,7 +24,7 @@ var out_nodes = 0
 var has_output = false
 
 func _ready():
-	set_background_sprite_visibility()
+	set_visibility()
 	set_sprite() #sets which sprite to be used in professor mode
 	add_items()
 	disable_gate_nodes_connecting()
@@ -33,7 +33,7 @@ func _ready():
 	create_visible_nodes_list()
 	#global.connect("professor_mode_change", self, custom_signal())
 
-func set_background_sprite_visibility():
+func set_visibility():
 	#print(global.professor_mode)
 	if global.professor_mode:
 		gateColor.show()
