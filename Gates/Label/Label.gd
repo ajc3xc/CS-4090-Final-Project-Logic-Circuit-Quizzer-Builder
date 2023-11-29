@@ -20,7 +20,6 @@ func _on_LineEdit_mouse_exited():
 func set_visibility():
 	if global.professor_mode:
 		get_node("LineEdit").visible = true
-		#get_node("gateColor").color = Color.dark
 		get_node("gateColor").color = Color("#2B2B2B")
 	else:
 		get_node("LineEdit").visible = false

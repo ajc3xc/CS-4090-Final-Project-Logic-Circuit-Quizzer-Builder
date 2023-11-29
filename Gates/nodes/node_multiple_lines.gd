@@ -181,7 +181,6 @@ func _physics_process(delta):
 			
 		if Input.is_action_just_released("left_click"):
 			print("released")
-			#print(last_connected_node)
 			global.is_dragging = false
 			if last_connected_node:
 				#turn off draggable and hovered_over for these nodes

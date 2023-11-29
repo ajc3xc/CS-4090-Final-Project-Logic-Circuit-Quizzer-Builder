@@ -1,11 +1,6 @@
 extends "set_visibility.gd"
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 func _on_Button_pressed():
 	#for child in get_node('../').get_children():
 	for child in get_tree().root.get_children():

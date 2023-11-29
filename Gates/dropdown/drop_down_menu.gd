@@ -31,7 +31,7 @@ func _ready():
 	set_nodes_to_enable()
 	enable_nodes()
 	create_visible_nodes_list()
-	#global.connect("professor_mode_change", self, custom_signal())
+
 
 func set_visibility():
 	#print(global.professor_mode)
@@ -92,9 +92,7 @@ func _on_OptionButton_item_selected(index):
 		selectedType = "XNOR"
 	_check_if_type_correct()
 		
-	#print(str(selectedType)+" "+str(isCorrect))
-	
-# OS.set_window_size(Vector2(1920, 1080)
+
 
 #used in inhereited nodes
 func _check_if_type_correct():
