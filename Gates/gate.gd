@@ -132,5 +132,5 @@ func _on_Area2D_body_exited(body):
 
 func remove_old_connections():
 	for child in get_children():
-		if child.name == "connecting_line":
+		if "connecting_line" in child.name:
 			remove_child(child)
