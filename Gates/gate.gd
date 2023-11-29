@@ -68,6 +68,7 @@ func _on_gateColor_mouse_exited():
 func _physics_process(delta):
 	if draggable:
 		if Input.is_action_just_pressed("left_click"):
+			get_tree().call_group("gates", "remove_old_connections")
 			global.is_dragging = true
 		elif Input.is_action_pressed("left_click"):
 			#move center of object to mouse position
@@ -128,3 +129,8 @@ func _on_Area2D_body_exited(body):
 		over_trash_bin = false
 		trash_bin_color.color = Color.orange
 		trash_bin_color = null
+
+func remove_old_connections():
+	for child in get_children():
+		if child.name == "connecting_line":
+			remove_child(child)

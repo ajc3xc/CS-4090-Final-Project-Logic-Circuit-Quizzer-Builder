@@ -1,13 +1,20 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Gates/dropdown/AND.gd" type="Script" id=1]
-[ext_resource path="res://Gates/dropdown/AND.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Gates/dropdown/AND.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Gates/dropdown/OR.tscn" type="PackedScene" id=2]
 
 [node name="save_node" type="Node2D"]
 
-[node name="AND" type="Node2D" parent="." groups=["dropdown", "gates"] instance=ExtResource( 2 )]
-position = Vector2( 418.5, 200 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="AND" parent="." instance=ExtResource( 1 )]
+position = Vector2( 289.5, 96 )
+
+[node name="connecting_line" type="Line2D" parent="AND"]
+points = PoolVector2Array( 196.056, 72.7651, 219.944, 227.235 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="OR" parent="." instance=ExtResource( 2 )]
+position = Vector2( 319.5, 290 )
+
+[node name="connecting_line" type="Line2D" parent="OR"]
+points = PoolVector2Array( 193, 53, 193, 53 )
+default_color = Color( 1, 1, 1, 1 )

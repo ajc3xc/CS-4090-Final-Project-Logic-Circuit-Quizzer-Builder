@@ -155,6 +155,7 @@ func _physics_process(delta):
 			print("pressed start")
 			change_line_start(circle_position)
 			global.is_dragging = true
+			get_tree().call_group("gates", "remove_old_connections")
 		if Input.is_action_pressed("left_click"):
 			offset = get_global_mouse_position() - global_position
 			draw_connecting_line(offset)
@@ -196,6 +197,7 @@ func _physics_process(delta):
 						
 						#add new line for this node
 						var new_line = Line2D.new()
+						new_line.name = "connecting_line"
 						new_line.set_default_color(Color.white)
 						add_child(new_line)
 						
@@ -211,6 +213,7 @@ func _physics_process(delta):
 						#add new line for connected node
 						#this is necessary so both know they reference each other
 						var connected_new_line = Line2D.new()
+						connected_new_line.name = "connecting_line"
 						connected_new_line.set_default_color(Color.white)
 						last_connected_node.add_child(connected_new_line)
 						
