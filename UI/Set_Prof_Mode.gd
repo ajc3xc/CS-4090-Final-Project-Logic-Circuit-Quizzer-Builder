@@ -13,7 +13,6 @@ extends "set_visibility.gd"
 #	pass
 
 func set_play_mode_visbility():
-	print(".")
 	if global.play_mode:
 		visible = true
 	else:
