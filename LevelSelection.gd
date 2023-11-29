@@ -49,12 +49,6 @@ func _on_LevelSelection_item_selected(index):
 		
 	for gate in imported_scene.get_children():
 		if gate.is_in_group("gates"):
-			#print(gate)
 			imported_scene.remove_child(gate)
 			get_tree().get_root().add_child(gate)
-			#print(gate.test_var)
-		#print(get_tree().get_root().get_children())	
-	#return
-	#get_tree().get_root().add_child(imported_scene)
-	#get_tree().change_scene("res://saves/"+files[index])
-	
+

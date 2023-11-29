@@ -5,5 +5,3 @@ extends Node2D
 func _ready():
 	global.professor_mode = global.professor_mode
 	global.play_mode = global.play_mode
-	#pass
-	#global.professor_mode = true

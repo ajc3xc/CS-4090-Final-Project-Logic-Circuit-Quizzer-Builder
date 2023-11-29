@@ -19,10 +19,6 @@ var save_node = Node2D.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	#var save_node = Node2D.new()
-	#get_tree().get_root().add_child(save_node)
-	#save_node.name = "nodes_to_save"
-	#print(save_node.get_path())
 
 func _on_Label_button_down():
 	spawn_gate(LABEL)
@@ -72,11 +68,7 @@ func _on_CONNECT_button_down():
 	spawn_gate(CONNECT)
 
 func spawn_gate(gateType: PackedScene):
-	#if not get_tree().get_root().get_node("nodes_to_save"):
-		#var save_node = Node2D.new()
-		#get_tree().get_root().add_child(save_node)
-		#save_node.name = "nodes_to_save"
-		#get_tree().get_root().add_child(gate)
+
 	if global.professor_mode and not global.is_dragging:
 		var gate = gateType.instance()
 		var gate_centered: Vector2 = gate.get_node("gateColor").get_size() / 2
@@ -84,10 +76,6 @@ func spawn_gate(gateType: PackedScene):
 		var gate_start_position: Vector2 = get_global_mouse_position() - gate_centered
 		gate.position = gate_start_position
 		gate.draggable = true
-		#get_tree().add_child(gate)
-		#add_child(gate)
-		#save_node.add_child(gate)
+
 		get_tree().get_root().add_child(gate)
-		#get_tree().get_root().get_node("game_simulator").add_child(gate)
-		#print(get_tree().get_root().get_children())
-		#print(get_node(NodePath))
+

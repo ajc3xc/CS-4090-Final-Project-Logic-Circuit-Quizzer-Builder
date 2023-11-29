@@ -11,9 +11,6 @@ func _ready():
 	game_mode_ui = true
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Button_pressed():
