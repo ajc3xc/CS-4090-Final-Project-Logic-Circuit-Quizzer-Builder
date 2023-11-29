@@ -38,7 +38,7 @@ func _on_LevelSelection_item_selected(index):
 	
 	get_tree().change_scene("res://game_simulator.tscn")
 	global.professor_mode = false
-	global.play_mode = false
+	global.play_mode = true
 	
 	#load in scene gates
 	var packed_scene = load("res://saves/"+files[index])
