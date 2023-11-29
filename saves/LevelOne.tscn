@@ -16,6 +16,18 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="connecting_line" type="Line2D" parent="AND"]
+points = PoolVector2Array( 212.995, 53.4663, 344.505, 56.5337 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="@connecting_line@19" type="Line2D" parent="AND"]
+points = PoolVector2Array( -2, 20, -2, 20 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="@connecting_line@20" type="Line2D" parent="AND"]
+points = PoolVector2Array( -1, 86, -1, 86 )
+default_color = Color( 1, 1, 1, 1 )
+
 [node name="in_on_gate" type="Node2D" parent="." groups=["gates"] instance=ExtResource( 3 )]
 position = Vector2( 170, 190 )
 script = ExtResource( 5 )
@@ -23,9 +35,17 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="connecting_line" type="Line2D" parent="in_on_gate"]
+points = PoolVector2Array( 90.6276, 33.1585, 214.872, 8.84149 )
+default_color = Color( 1, 1, 1, 1 )
+
 [node name="out_gate" type="Node2D" parent="." groups=["gates"] instance=ExtResource( 1 )]
 position = Vector2( 771, 196 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="connecting_line" type="Line2D" parent="out_gate"]
+points = PoolVector2Array( 0, 36, 0, 36 )
+default_color = Color( 1, 1, 1, 1 )
