@@ -41,12 +41,12 @@ func _on_LineEdit_text_entered(new_text):
 				#print(gate)
 				imported_scene.remove_child(gate)
 				get_tree().get_root().add_child(gate)
-				print(gate.test_var)
+				#print(gate.test_var)
 		
 		#print(get_tree().get_root().get_children())	
-		return
-		get_tree().get_root().add_child(imported_scene)
-		for gate in imported_scene.get_children():
-			print(gate)
+#		return
+#		get_tree().get_root().add_child(imported_scene)
+#		for gate in imported_scene.get_children():
+#			print(gate)
 	else:
 		print("Invalid Scene")

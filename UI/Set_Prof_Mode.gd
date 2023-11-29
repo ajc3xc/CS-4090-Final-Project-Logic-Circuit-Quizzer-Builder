@@ -12,6 +12,12 @@ extends "set_visibility.gd"
 #func _process(delta):
 #	pass
 
+func set_play_mode_visbility():
+	print(".")
+	if global.play_mode:
+		visible = true
+	else:
+		visible = false
 
 func _on_Button_pressed():
 	global.professor_mode = !global.professor_mode

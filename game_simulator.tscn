@@ -20,19 +20,19 @@ position = Vector2( 1, 4 )
 position = Vector2( 151, 0 )
 
 [node name="Check_Button" parent="." instance=ExtResource( 12 )]
-position = Vector2( 760, 497 )
+position = Vector2( 871, 541 )
 
 [node name="Clear_Button" parent="." instance=ExtResource( 11 )]
-position = Vector2( 879, 331 )
+position = Vector2( 872, 380 )
 
 [node name="trash_bin" parent="Clear_Button" instance=ExtResource( 10 )]
 position = Vector2( 69, 117 )
 
 [node name="Load_Button" parent="." instance=ExtResource( 4 )]
-position = Vector2( 942, 231 )
+position = Vector2( 886, 124 )
 
 [node name="Save_Button" parent="." instance=ExtResource( 5 )]
-position = Vector2( 902, 171 )
+position = Vector2( 885, 53 )
 
 [node name="Set_Prof_Mode" parent="." instance=ExtResource( 2 )]
-position = Vector2( 883, 93 )
+position = Vector2( 871, 0 )
