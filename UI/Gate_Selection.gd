@@ -1,6 +1,7 @@
 extends "set_visibility.gd"
 
 #paths to location of gate scenes
+var LABEL = preload("res://Gates/Label/Label.tscn")
 var AND = preload("res://Gates/dropdown/AND.tscn")
 var OR = preload("res://Gates/dropdown/OR.tscn")
 var XOR = preload("res://Gates/dropdown/XOR.tscn")
@@ -13,11 +14,19 @@ var OFF = preload("res://Gates/non_dropdown/in_off_gate.tscn")
 var OUT = preload("res://Gates/non_dropdown/out_gate.tscn")
 var CONNECT = preload("res://Gates/non_dropdown/connector_gate.tscn")
 
+var save_node = Node2D.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+	#var save_node = Node2D.new()
+	#get_tree().get_root().add_child(save_node)
+	#save_node.name = "nodes_to_save"
+	#print(save_node.get_path())
 
+func _on_Label_button_down():
+	spawn_gate(LABEL)
+	
 
 func _on_AND_button_down():
 	spawn_gate(AND)
@@ -63,6 +72,11 @@ func _on_CONNECT_button_down():
 	spawn_gate(CONNECT)
 
 func spawn_gate(gateType: PackedScene):
+	#if not get_tree().get_root().get_node("nodes_to_save"):
+		#var save_node = Node2D.new()
+		#get_tree().get_root().add_child(save_node)
+		#save_node.name = "nodes_to_save"
+		#get_tree().get_root().add_child(gate)
 	if global.professor_mode and not global.is_dragging:
 		var gate = gateType.instance()
 		var gate_centered: Vector2 = gate.get_node("gateColor").get_size() / 2
@@ -72,9 +86,8 @@ func spawn_gate(gateType: PackedScene):
 		gate.draggable = true
 		#get_tree().add_child(gate)
 		#add_child(gate)
+		#save_node.add_child(gate)
 		get_tree().get_root().add_child(gate)
+		#get_tree().get_root().get_node("game_simulator").add_child(gate)
 		#print(get_tree().get_root().get_children())
 		#print(get_node(NodePath))
-
-func recursively_find_GateSelectionLevel():
-	pass
