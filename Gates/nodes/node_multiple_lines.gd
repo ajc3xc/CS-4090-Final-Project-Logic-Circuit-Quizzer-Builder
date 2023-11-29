@@ -213,6 +213,7 @@ func _physics_process(delta):
 						#add new line for connected node
 						#this is necessary so both know they reference each other
 						var connected_new_line = Line2D.new()
+						
 						connected_new_line.name = "connecting_line"
 						connected_new_line.set_default_color(Color.white)
 						last_connected_node.add_child(connected_new_line)

@@ -90,7 +90,7 @@ func save_connecting_line_nodes(node, gate, save_node):
 	"""
 	if node.is_in_group("line_node"):
 		for child in node.get_children():
-			if child.name == "connecting_line":
+			if "connecting_line" in child.name:
 				#print(node.global_position)
 				#print(gate.global_position)
 				
@@ -115,13 +115,18 @@ func save_connecting_line_nodes(node, gate, save_node):
 				#print(new_points)
 				#print(new_points)
 				var duplicate_line = Line2D.new()
-				duplicate_line.name = "connecting_line"
+				var i = 0
+				while gate.get_node("connecting_line"+str(i)):
+					i += 1
+				#if gate.get_node("connecting_line"):
+				#	print(".")
+				duplicate_line.name = "connecting_line"+str(i)
 				duplicate_line.set_default_color(Color.white)
 				duplicate_line.add_point(new_points[0])
 				duplicate_line.add_point(new_points[1])
 				#for point in duplicate_line.get_points():
 				#	point += updated_position
-				print(duplicate_line.get_points())
+				#print(duplicate_line.get_points())
 				gate.add_child(duplicate_line)
 				duplicate_line.set_owner(save_node)	
 	else:
